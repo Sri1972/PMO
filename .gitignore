@@ -1,9 +1,0 @@
-.env
-Backups/
-__pycache__/
-*.zip
-*.exe
-*.pkl
-*.bin
-*.h5
-App/nul
