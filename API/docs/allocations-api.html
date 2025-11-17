@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allocations API - PMO API Documentation</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-project-diagram"></i>
+                <span>PMO API</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="screener-api.html" class="nav-link">Screener API</a></li>
+                <li><a href="projects-api.html" class="nav-link">Projects API</a></li>
+                <li><a href="resources-api.html" class="nav-link">Resources API</a></li>
+                <li><a href="allocations-api.html" class="nav-link active">Allocations API</a></li>
+                <li><a href="modules.html" class="nav-link">All Modules</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <i class="fas fa-calendar-check"></i>
+                        Allocations API
+                    </h1>
+                    <p class="hero-subtitle">
+                        Comprehensive resource allocation management with planned vs actual tracking, role summaries, and project-based filtering.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">9</span>
+                            <span class="stat-label">Endpoints</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">Summary Types</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">2</span>
+                            <span class="stat-label">Tracking Modes</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- API Endpoints -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Allocation Endpoints</h2>
+                    <p>Complete resource allocation management and tracking</p>
+                </div>
+
+                <!-- Get All Allocations -->
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/allocations</span>
+                        <span class="description">Get all resource allocations with calculated hours and costs</span>
+                    </div>
+                    <div class="endpoint-content">
+                        <div class="endpoint-details">
+                            <h4>Description</h4>
+                            <p>Retrieves all resource allocations with enriched data including planned hours, costs, and time-off adjustments.</p>
+                            
+                            <h4>Response Fields</h4>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>allocation_id</td>
+                                        <td>integer</td>
+                                        <td>Unique allocation identifier</td>
+                                    </tr>
+                                    <tr>
+                                        <td>project_id</td>
+                                        <td>integer</td>
+                                        <td>Associated project ID</td>
+                                    </tr>
+                                    <tr>
+                                        <td>resource_id</td>
+                                        <td>integer</td>
+                                        <td>Associated resource ID</td>
+                                    </tr>
+                                    <tr>
+                                        <td>allocation_start_date</td>
+                                        <td>string</td>
+                                        <td>Start date (YYYY-MM-DD)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>allocation_end_date</td>
+                                        <td>string</td>
+                                        <td>End date (YYYY-MM-DD)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>allocation_pct</td>
+                                        <td>number</td>
+                                        <td>Allocation percentage</td>
+                                    </tr>
+                                    <tr>
+                                        <td>allocation_hrs_per_week</td>
+                                        <td>number</td>
+                                        <td>Hours per week allocation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>resource_hours_planned</td>
+                                        <td>number</td>
+                                        <td>Calculated planned hours</td>
+                                    </tr>
+                                    <tr>
+                                        <td>resource_cost_planned</td>
+                                        <td>number</td>
+                                        <td>Calculated planned cost</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>PowerShell Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-powershell">Invoke-WebRequest -Uri "http://localhost:5000/allocations" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Get Allocations by Project -->
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/allocations/project</span>
+                        <span class="description">Get allocations for specific project(s) with planned vs actual tracking</span>
+                    </div>
+                    <div class="endpoint-content">
+                        <div class="endpoint-details">
+                            <h4>Query Parameters</h4>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Required</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>project_ids</td>
+                                        <td>array[integer]</td>
+                                        <td>List of project IDs to filter by</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Additional Response Fields</h4>
+                            <ul>
+                                <li><strong>resource_hours_actual:</strong> Actual hours worked from timesheets</li>
+                                <li><strong>resource_cost_actual:</strong> Actual cost based on timesheet data</li>
+                                <li><strong>timesheet_start_date:</strong> First timesheet entry date</li>
+                                <li><strong>timesheet_end_date:</strong> Last timesheet entry date</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>PowerShell Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-powershell">Invoke-WebRequest -Uri "http://localhost:5000/allocations/project?project_ids=1&project_ids=5&project_ids=10" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Get Allocations by Resource -->
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/allocations/resource/{resource_id}</span>
+                        <span class="description">Get all allocations for a specific resource</span>
+                    </div>
+                    <div class="endpoint-content">
+                        <div class="endpoint-details">
+                            <h4>Path Parameters</h4>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Required</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>resource_id</td>
+                                        <td>integer</td>
+                                        <td>Unique resource identifier</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>PowerShell Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-powershell">Invoke-WebRequest -Uri "http://localhost:5000/allocations/resource/25" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Summary -->
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/allocations/project_summary</span>
+                        <span class="description">Get aggregated project summaries with total hours and costs</span>
+                    </div>
+                    <div class="endpoint-content">
+                        <div class="endpoint-details">
+                            <h4>Query Parameters</h4>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Required</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>project_ids</td>
+                                        <td>array[integer]</td>
+                                        <td>List of project IDs to summarize</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Response Format</h4>
+                            <div class="code-container">
+                                <pre><code class="language-json">{
+  "1": {
+    "project_id": 1,
+    "project_name": "Project Alpha",
+    "strategic_portfolio": "Market & Sell",
+    "total_resource_hours_planned": 1200.5,
+    "total_resource_cost_planned": 150000.00,
+    "total_resource_hours_actual": 980.2,
+    "total_resource_cost_actual": 122525.00
+  }
+}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>PowerShell Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-powershell">Invoke-WebRequest -Uri "http://localhost:5000/allocations/project_summary?project_ids=1&project_ids=5" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resource Role Summary -->
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/allocations/resource_role_summary</span>
+                        <span class="description">Get resource summaries grouped by role for specific projects</span>
+                    </div>
+                    <div class="endpoint-content">
+                        <div class="endpoint-details">
+                            <h4>Description</h4>
+                            <p>Returns detailed breakdown of resource allocations grouped by role, including individual resource details.</p>
+                            
+                            <h4>Query Parameters</h4>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Required</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>project_ids</td>
+                                        <td>array[integer]</td>
+                                        <td>List of project IDs to analyze</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Response Structure</h4>
+                            <div class="code-container">
+                                <pre><code class="language-json">{
+  "1": {
+    "Full Stack Developer": {
+      "total_resource_hours_planned": 800.0,
+      "total_resource_cost_planned": 100000.00,
+      "total_resource_hours_actual": 650.5,
+      "total_resource_cost_actual": 81312.50,
+      "resources_details": [
+        {
+          "resource_id": 25,
+          "resource_name": "John Doe",
+          "resource_email": "john.doe@company.com",
+          "resource_hours_planned": 400.0,
+          "resource_cost_planned": 50000.00,
+          "resource_hours_actual": 325.2,
+          "resource_cost_actual": 40650.00
+        }
+      ]
+    }
+  }
+}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create/Update Allocation -->
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/allocate</span>
+                        <span class="description">Create or update resource allocations (supports bulk operations)</span>
+                    </div>
+                    <div class="endpoint-content">
+                        <div class="endpoint-details">
+                            <h4>Request Body</h4>
+                            <p>Accepts an array of allocation objects for bulk operations.</p>
+                            
+                            <div class="code-container">
+                                <pre><code class="language-json">[
+  {
+    "allocation_id": 101,
+    "project_id": 1,
+    "resource_id": 25,
+    "allocation_start_date": "2025-01-01",
+    "allocation_end_date": "2025-06-30",
+    "allocation_pct": 50,
+    "allocation_hrs_per_week": null
+  },
+  {
+    "allocation_id": 102,
+    "project_id": 1,
+    "resource_id": 30,
+    "allocation_start_date": "2025-02-01",
+    "allocation_end_date": "2025-08-31",
+    "allocation_pct": null,
+    "allocation_hrs_per_week": 20
+  }
+]</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            
+                            <h4>Required Fields</h4>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>allocation_id</td>
+                                        <td>integer</td>
+                                        <td>Unique allocation identifier</td>
+                                    </tr>
+                                    <tr>
+                                        <td>project_id</td>
+                                        <td>integer</td>
+                                        <td>Project to allocate to</td>
+                                    </tr>
+                                    <tr>
+                                        <td>resource_id</td>
+                                        <td>integer</td>
+                                        <td>Resource being allocated</td>
+                                    </tr>
+                                    <tr>
+                                        <td>allocation_start_date</td>
+                                        <td>string</td>
+                                        <td>Start date (YYYY-MM-DD)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>allocation_end_date</td>
+                                        <td>string</td>
+                                        <td>End date (YYYY-MM-DD)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle"></i>
+                                <span><strong>Note:</strong> Either allocation_pct OR allocation_hrs_per_week must be provided (not both).</span>
+                            </div>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>PowerShell Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-powershell">$body = @(
+    @{
+        allocation_id = 101
+        project_id = 1
+        resource_id = 25
+        allocation_start_date = "2025-01-01"
+        allocation_end_date = "2025-06-30"
+        allocation_pct = 50
+        allocation_hrs_per_week = $null
+    }
+) | ConvertTo-Json
+
+Invoke-WebRequest -Uri "http://localhost:5000/allocate" `
+  -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body $body</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delete Allocation -->
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method delete">DELETE</span>
+                        <span class="path">/allocations/{allocation_id}</span>
+                        <span class="description">Delete a specific allocation</span>
+                    </div>
+                    <div class="endpoint-content">
+                        <div class="endpoint-details">
+                            <h4>Path Parameters</h4>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Required</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>allocation_id</td>
+                                        <td>integer</td>
+                                        <td>Allocation ID to delete</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>PowerShell Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-powershell">Invoke-WebRequest -Uri "http://localhost:5000/allocations/101" `
+  -Method DELETE `
+  -Headers @{"Content-Type"="application/json"}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Get Next Allocation ID -->
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/allocations/next_allocation_id</span>
+                        <span class="description">Generate the next available allocation ID</span>
+                    </div>
+                    <div class="endpoint-content">
+                        <div class="endpoint-details">
+                            <h4>Description</h4>
+                            <p>Returns the next sequential allocation ID that can be used for new allocations.</p>
+                            
+                            <h4>Response Format</h4>
+                            <div class="code-container">
+                                <pre><code class="language-json">{
+  "next_allocation_id": 105
+}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>PowerShell Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-powershell">Invoke-WebRequest -Uri "http://localhost:5000/allocations/next_allocation_id" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Examples Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Common Use Cases</h2>
+                    <p>Real-world examples for allocation management</p>
+                </div>
+
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <div class="example-header">
+                            <i class="fas fa-chart-line"></i>
+                            <h3>Project Progress Tracking</h3>
+                        </div>
+                        <div class="example-content">
+                            <p>Get planned vs actual progress for a project</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Get detailed allocations with actual tracking
+Invoke-WebRequest -Uri "http://localhost:5000/allocations/project?project_ids=1" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-header">
+                            <i class="fas fa-users-cog"></i>
+                            <h3>Role-Based Analysis</h3>
+                        </div>
+                        <div class="example-content">
+                            <p>Analyze resource allocation by role</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Get role summaries for multiple projects
+Invoke-WebRequest -Uri "http://localhost:5000/allocations/resource_role_summary?project_ids=1&project_ids=5&project_ids=10" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-header">
+                            <i class="fas fa-plus-circle"></i>
+                            <h3>Bulk Allocation Creation</h3>
+                        </div>
+                        <div class="example-content">
+                            <p>Create multiple allocations at once</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Bulk allocation for project team
+$allocations = @(
+    @{ allocation_id=101; project_id=1; resource_id=25; allocation_start_date="2025-01-01"; allocation_end_date="2025-06-30"; allocation_pct=100 },
+    @{ allocation_id=102; project_id=1; resource_id=30; allocation_start_date="2025-01-01"; allocation_end_date="2025-06-30"; allocation_pct=50 }
+) | ConvertTo-Json
+
+Invoke-WebRequest -Uri "http://localhost:5000/allocate" -Method POST -Headers @{"Content-Type"="application/json"} -Body $allocations</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h4>Allocations API</h4>
+                        <p>Comprehensive resource allocation management with planned vs actual tracking and role-based analytics.</p>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="projects-api.html">Projects API</a></li>
+                            <li><a href="resources-api.html">Resources API</a></li>
+                            <li><a href="screener-api.html">Screener API</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Features</h4>
+                        <ul>
+                            <li>Planned vs Actual Tracking</li>
+                            <li>Role-Based Summaries</li>
+                            <li>Bulk Operations</li>
+                            <li>Time-off Adjustments</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 PMO API Documentation. Built with ❤️ for developers.</p>
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMO API Documentation</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-project-diagram"></i>
+                <span>PMO API</span>
+            </div>
+            <div class="nav-links">
+                <a href="#overview" class="nav-link active">Overview</a>
+                <a href="#getting-started" class="nav-link">Getting Started</a>
+                <a href="screener-api.html" class="nav-link">Screener API</a>
+                <a href="projects-api.html" class="nav-link">Projects API</a>
+                <a href="resources-api.html" class="nav-link">Resources API</a>
+                <a href="allocations-api.html" class="nav-link">Allocations API</a>
+                <a href="managers-api.html" class="nav-link">Managers API</a>
+                <a href="business-lines-api.html" class="nav-link">Business Lines API</a>
+                <a href="utility-apis.html" class="nav-link">Utility APIs</a>
+                <a href="modules.html" class="nav-link">All Modules</a>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="#base-url">Base URL</a></li>
+                    <li><a href="#authentication">Authentication</a></li>
+                    <li><a href="#response-format">Response Format</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Core Endpoints</h3>
+                <ul>
+                    <li><a href="#projects-api">Projects (Overview)</a></li>
+                    <li><a href="#resources-api">Resources (Overview)</a></li>
+                    <li><a href="#allocations-api">Allocations (Overview)</a></li>
+                    <li><a href="#managers-api">Managers (Overview)</a></li>
+                    <li><a href="#business-lines-api">Business Lines (Overview)</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Screener API</h3>
+                <ul>
+                    <li><a href="screener-api.html">Dynamic Queries</a></li>
+                    <li><a href="screener-api.html#screener-projects">Project Screener</a></li>
+                    <li><a href="screener-api.html#screener-resources">Resource Screener</a></li>
+                    <li><a href="screener-api.html#screener-capacity">Capacity Screener</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Utility Endpoints</h3>
+                <ul>
+                    <li><a href="utility-apis.html">Utility APIs →</a></li>
+                    <li><a href="utility-apis.html#timeoff-api">Time Off</a></li>
+                    <li><a href="utility-apis.html#roles-api">Resource Roles</a></li>
+                    <li><a href="utility-apis.html#excel-import-api">Excel Import</a></li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section id="overview" class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <i class="fas fa-rocket"></i>
+                        PMO API Documentation
+                    </h1>
+                    <p class="hero-subtitle">
+                        Comprehensive Project Management Office API for managing projects, resources, allocations, and capacity planning.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">10</span>
+                            <span class="stat-label">API Modules</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">35+</span>
+                            <span class="stat-label">Endpoints</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">Dedicated Pages</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Getting Started -->
+            <section id="getting-started" class="section">
+                <div class="section-header">
+                    <h2>Getting Started</h2>
+                    <p>Quick start guide to using the PMO API</p>
+                </div>
+
+                <div class="cards-grid">
+                    <div class="card" id="base-url">
+                        <div class="card-header">
+                            <i class="fas fa-globe"></i>
+                            <h3>Base URL</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="code-block">
+                                <code>http://localhost:5000</code>
+                                <button class="copy-btn" onclick="copyToClipboard('http://localhost:5000')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            <p>All API endpoints are relative to this base URL.</p>
+                        </div>
+                    </div>
+
+                    <div class="card" id="authentication">
+                        <div class="card-header">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>Authentication</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Currently, no authentication is required for API access. All endpoints are publicly accessible.</p>
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Authentication may be required in production environments.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" id="response-format">
+                        <div class="card-header">
+                            <i class="fas fa-code"></i>
+                            <h3>Response Format</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>All responses are in JSON format with appropriate HTTP status codes:</p>
+                            <ul>
+                                <li><strong>200:</strong> Success</li>
+                                <li><strong>201:</strong> Created</li>
+                                <li><strong>400:</strong> Bad Request</li>
+                                <li><strong>404:</strong> Not Found</li>
+                                <li><strong>500:</strong> Internal Server Error</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Endpoints -->
+            <section id="endpoints" class="section">
+                <div class="section-header">
+                    <h2>Core API Endpoints</h2>
+                    <p>Complete reference for all available endpoints</p>
+                </div>
+
+                <!-- Projects API -->
+                <div class="api-group" id="projects-api">
+                    <h3 class="api-group-title">
+                        <i class="fas fa-project-diagram"></i>
+                        Projects API
+                    </h3>
+                    <p class="api-group-description">Manage project data, timelines, and filtering operations.</p>
+                    
+                    <div class="endpoints-list">
+                        <!-- Get All Projects -->
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method get">GET</span>
+                                <span class="path">/projects</span>
+                                <span class="description">Get all projects with enriched data</span>
+                            </div>
+                            <div class="endpoint-content">
+                                <div class="endpoint-details">
+                                    <h4>Description</h4>
+                                    <p>Retrieves all projects with calculated resource hours, costs, and role summaries.</p>
+                                    
+                                    <h4>Response</h4>
+                                    <div class="code-container">
+                                        <pre><code class="language-json">[
+  {
+    "project_id": 1,
+    "project_name": "Concept Memo",
+    "strategic_portfolio": "Market & Sell",
+    "product_line": "NA Industry Performance",
+    "current_status": "Not Started",
+    "project_resource_hours_planned": 0.0,
+    "project_resource_cost_planned": 0.0,
+    "resource_role_summary": {},
+    "start_date_est": "2025-01-01",
+    "end_date_est": "2025-12-31"
+  }
+]</code></pre>
+                                        <button class="copy-btn" onclick="copyCode(this)">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="example-request">
+                                    <h4>Example Request</h4>
+                                    <div class="code-container">
+                                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/projects" \
+  -H "Content-Type: application/json"</code></pre>
+                                        <button class="copy-btn" onclick="copyCode(this)">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Get Project by ID -->
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method get">GET</span>
+                                <span class="path">/projects/{project_id}</span>
+                                <span class="description">Get a specific project by ID</span>
+                            </div>
+                            <div class="endpoint-content">
+                                <div class="endpoint-details">
+                                    <h4>Parameters</h4>
+                                    <table class="params-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th>Description</th>
+                                                <th>Required</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>project_id</td>
+                                                <td>integer</td>
+                                                <td>Unique project identifier</td>
+                                                <td>Yes</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="example-request">
+                                    <h4>Example Request</h4>
+                                    <div class="code-container">
+                                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/projects/1" \
+  -H "Content-Type: application/json"</code></pre>
+                                        <button class="copy-btn" onclick="copyCode(this)">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Create/Update Project -->
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method post">POST</span>
+                                <span class="path">/projects</span>
+                                <span class="description">Create or update a project</span>
+                            </div>
+                            <div class="endpoint-content">
+                                <div class="endpoint-details">
+                                    <h4>Request Body</h4>
+                                    <div class="code-container">
+                                        <pre><code class="language-json">{
+  "project_name": "New Project",
+  "strategic_portfolio": "Market & Sell",
+  "product_line": "Commercial",
+  "project_type": "Technology",
+  "project_description": "Project description",
+  "current_status": "Active",
+  "start_date_est": "2025-01-01",
+  "end_date_est": "2025-12-31"
+}</code></pre>
+                                        <button class="copy-btn" onclick="copyCode(this)">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Filter Projects -->
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method get">GET</span>
+                                <span class="path">/projects_filter</span>
+                                <span class="description">Filter projects by multiple criteria</span>
+                            </div>
+                            <div class="endpoint-content">
+                                <div class="endpoint-details">
+                                    <h4>Query Parameters</h4>
+                                    <table class="params-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th>Description</th>
+                                                <th>Required</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>strategic_portfolio</td>
+                                                <td>string</td>
+                                                <td>Filter by strategic portfolio</td>
+                                                <td>No</td>
+                                            </tr>
+                                            <tr>
+                                                <td>product_line</td>
+                                                <td>string</td>
+                                                <td>Filter by product line</td>
+                                                <td>No</td>
+                                            </tr>
+                                            <tr>
+                                                <td>technology_project</td>
+                                                <td>string</td>
+                                                <td>Filter by technology project flag</td>
+                                                <td>No</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="example-request">
+                                    <h4>Example Request</h4>
+                                    <div class="code-container">
+                                        <pre><code class="language-bash">curl -X GET "http://localhost:5000/projects_filter?strategic_portfolio=Market%20%26%20Sell&product_line=Commercial" \
+  -H "Content-Type: application/json"</code></pre>
+                                        <button class="copy-btn" onclick="copyCode(this)">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Project Endpoints -->
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method get">GET</span>
+                                <span class="path">/projects/dynamic_filter</span>
+                                <span class="description">Advanced dynamic project filtering</span>
+                            </div>
+                        </div>
+
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method get">GET</span>
+                                <span class="path">/projects/timelines</span>
+                                <span class="description">Get project timeline information</span>
+                            </div>
+                        </div>
+
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method post">POST</span>
+                                <span class="path">/projects/timelines</span>
+                                <span class="description">Create or update project timelines</span>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i>
+                            <span><strong>9 Total Endpoints Available:</strong> <a href="projects-api.html">View complete Projects API documentation →</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resources API -->
+                <div class="api-group" id="resources-api">
+                    <h3 class="api-group-title">
+                        <i class="fas fa-users"></i>
+                        Resources API
+                    </h3>
+                    <p class="api-group-description">Manage resource data, capacity, and allocation information.</p>
+                    
+                    <div class="endpoints-list">
+                        <!-- Get All Resources -->
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method get">GET</span>
+                                <span class="path">/resources</span>
+                                <span class="description">Get all resources</span>
+                            </div>
+                            <div class="endpoint-content">
+                                <div class="endpoint-details">
+                                    <h4>Response</h4>
+                                    <div class="code-container">
+                                        <pre><code class="language-json">[
+  {
+    "resource_id": 1,
+    "resource_name": "John Doe",
+    "resource_email": "john.doe@company.com",
+    "resource_type": "Employee",
+    "strategic_portfolio": "Auto Insights",
+    "product_line": "Cross-Product",
+    "manager_name": "Jane Smith",
+    "manager_email": "jane.smith@company.com",
+    "resource_role": "Full Stack Developer",
+    "yearly_capacity": 1664
+  }
+]</code></pre>
+                                        <button class="copy-btn" onclick="copyCode(this)">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Resource Capacity -->
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method get">GET</span>
+                                <span class="path">/resource_capacity</span>
+                                <span class="description">Get resource capacity for a time period</span>
+                            </div>
+                            <div class="endpoint-content">
+                                <div class="endpoint-details">
+                                    <h4>Key Parameters</h4>
+                                    <p>resource_id, start_date, end_date, interval (Monthly/Weekly)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Endpoints -->
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method get">GET</span>
+                                <span class="path">/resource_capacity_allocation</span>
+                                <span class="description">Get resource capacity with allocation data</span>
+                            </div>
+                        </div>
+
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method get">GET</span>
+                                <span class="path">/resource_capacity_allocation_by_project</span>
+                                <span class="description">Get capacity allocation grouped by project</span>
+                            </div>
+                        </div>
+
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method post">POST</span>
+                                <span class="path">/resources</span>
+                                <span class="description">Create or update resource data</span>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i>
+                            <span><strong>8 Total Endpoints Available:</strong> <a href="resources-api.html">View complete Resources API documentation →</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Allocations API -->
+                <div class="api-group" id="allocations-api">
+                    <h3 class="api-group-title">
+                        <i class="fas fa-calendar-check"></i>
+                        Allocations API
+                    </h3>
+                    <p class="api-group-description">Resource allocation management with planned vs actual tracking.</p>
+                    
+                    <div class="endpoints-list">
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method get">GET</span>
+                                <span class="path">/allocations</span>
+                                <span class="description">Get all resource allocations</span>
+                            </div>
+                            <div class="endpoint-content">
+                                <p>Retrieves all resource allocations with calculated hours, costs, and time-off adjustments.</p>
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span><strong>Full Documentation:</strong> <a href="allocations-api.html">View complete Allocations API documentation →</a></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method get">GET</span>
+                                <span class="path">/allocations/project</span>
+                                <span class="description">Get allocations by project with planned vs actual tracking</span>
+                            </div>
+                        </div>
+                        
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method post">POST</span>
+                                <span class="path">/allocate</span>
+                                <span class="description">Create or update resource allocations (bulk operations)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Managers API -->
+                <div class="api-group" id="managers-api">
+                    <h3 class="api-group-title">
+                        <i class="fas fa-user-tie"></i>
+                        Managers API
+                    </h3>
+                    <p class="api-group-description">Manager directory and contact information management.</p>
+                    
+                    <div class="endpoints-list">
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method get">GET</span>
+                                <span class="path">/managers</span>
+                                <span class="description">Get all managers with contact information</span>
+                            </div>
+                            <div class="endpoint-content">
+                                <p>Retrieves complete manager directory with contact information and strategic portfolio assignments.</p>
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span><strong>Full Documentation:</strong> <a href="managers-api.html">View complete Managers API documentation →</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Lines API -->
+                <div class="api-group" id="business-lines-api">
+                    <h3 class="api-group-title">
+                        <i class="fas fa-sitemap"></i>
+                        Business Lines API
+                    </h3>
+                    <p class="api-group-description">Organizational structure and business hierarchy management.</p>
+                    
+                    <div class="endpoints-list">
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method get">GET</span>
+                                <span class="path">/business_lines</span>
+                                <span class="description">Get all business lines with portfolio mapping</span>
+                            </div>
+                            <div class="endpoint-content">
+                                <p>Retrieves organizational structure showing strategic portfolios and product line relationships.</p>
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span><strong>Full Documentation:</strong> <a href="business-lines-api.html">View complete Business Lines API documentation →</a></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method get">GET</span>
+                                <span class="path">/strategic_portfolios</span>
+                                <span class="description">Get all unique strategic portfolios</span>
+                            </div>
+                        </div>
+                        
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method get">GET</span>
+                                <span class="path">/product_lines/{strategic_portfolio}</span>
+                                <span class="description">Get product lines for specific portfolio</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Screener API Section -->
+                <div class="api-group" id="screener">
+                    <h3 class="api-group-title">
+                        <i class="fas fa-filter"></i>
+                        Screener API - Dynamic Query Builder
+                    </h3>
+                    <p class="api-group-description">Powerful dynamic filtering and querying capabilities for projects, resources, and capacity allocation.</p>
+                    
+                    <!-- Project Screener -->
+                    <div class="endpoint" id="screener-projects">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="path">/screener_projects</span>
+                            <span class="description">Dynamic project filtering with field selection</span>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="endpoint-details">
+                                <h4>Description</h4>
+                                <p>Filter projects with dynamic criteria and select specific response fields. Supports multiple operators and logical combinations.</p>
+                                
+                                <h4>Request Body</h4>
+                                <div class="code-container">
+                                    <pre><code class="language-json">{
+  "filters": [
+    {
+      "column": "strategic_portfolio",
+      "operator": "=",
+      "value": "Market & Sell"
+    },
+    {
+      "column": "current_status",
+      "operator": "=",
+      "value": "Active"
+    }
+  ],
+  "logical_operator": "AND",
+  "fields": [
+    "project_id",
+    "project_name",
+    "strategic_portfolio",
+    "current_status",
+    "resource_hours_planned",
+    "resource_cost_planned"
+  ]
+}</code></pre>
+                                    <button class="copy-btn" onclick="copyCode(this)">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+
+                                <h4>Available Operators</h4>
+                                <div class="operators-grid">
+                                    <div class="operator-item">
+                                        <code>=</code>
+                                        <span>Equals</span>
+                                    </div>
+                                    <div class="operator-item">
+                                        <code>!=</code>
+                                        <span>Not equals</span>
+                                    </div>
+                                    <div class="operator-item">
+                                        <code>&gt;</code>
+                                        <span>Greater than</span>
+                                    </div>
+                                    <div class="operator-item">
+                                        <code>&lt;</code>
+                                        <span>Less than</span>
+                                    </div>
+                                    <div class="operator-item">
+                                        <code>&gt;=</code>
+                                        <span>Greater or equal</span>
+                                    </div>
+                                    <div class="operator-item">
+                                        <code>&lt;=</code>
+                                        <span>Less or equal</span>
+                                    </div>
+                                    <div class="operator-item">
+                                        <code>LIKE</code>
+                                        <span>Pattern match (%)</span>
+                                    </div>
+                                    <div class="operator-item">
+                                        <code>IN</code>
+                                        <span>In list [1,2,3]</span>
+                                    </div>
+                                </div>
+
+                                <h4>Available Fields</h4>
+                                <div class="fields-grid">
+                                    <div class="field-category">
+                                        <h5>Basic Fields</h5>
+                                        <ul>
+                                            <li>project_id</li>
+                                            <li>project_name</li>
+                                            <li>strategic_portfolio</li>
+                                            <li>product_line</li>
+                                            <li>current_status</li>
+                                            <li>rag_status</li>
+                                        </ul>
+                                    </div>
+                                    <div class="field-category">
+                                        <h5>Calculated Fields</h5>
+                                        <ul>
+                                            <li>resource_hours_planned</li>
+                                            <li>resource_cost_planned</li>
+                                            <li>resource_hours_actual</li>
+                                            <li>resource_cost_actual</li>
+                                            <li>resource_role_summary</li>
+                                        </ul>
+                                    </div>
+                                    <div class="field-category">
+                                        <h5>Special Values</h5>
+                                        <ul>
+                                            <li><code>["all"]</code> - All fields</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="example-request">
+                                <h4>PowerShell Example</h4>
+                                <div class="code-container">
+                                    <pre><code class="language-powershell">Invoke-WebRequest -Uri "http://localhost:5000/screener_projects" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{
+    "filters": [
+      {"column": "strategic_portfolio", "operator": "=", "value": "Market & Sell"}
+    ],
+    "logical_operator": "AND",
+    "fields": ["project_id", "project_name", "strategic_portfolio", "current_status"]
+  }'</code></pre>
+                                    <button class="copy-btn" onclick="copyCode(this)">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resource Screener -->
+                    <div class="endpoint" id="screener-resources">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="path">/screener_resources</span>
+                            <span class="description">Dynamic resource filtering with field selection</span>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="endpoint-details">
+                                <h4>Request Body Example</h4>
+                                <div class="code-container">
+                                    <pre><code class="language-json">{
+  "filters": [
+    {
+      "column": "resource_role",
+      "operator": "=",
+      "value": "Full Stack Developer"
+    },
+    {
+      "column": "strategic_portfolio",
+      "operator": "=",
+      "value": "Market & Sell"
+    }
+  ],
+  "logical_operator": "AND",
+  "fields": [
+    "resource_id",
+    "resource_name",
+    "resource_role",
+    "resource_email",
+    "strategic_portfolio",
+    "yearly_capacity"
+  ]
+}</code></pre>
+                                    <button class="copy-btn" onclick="copyCode(this)">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Capacity Allocation Screener -->
+                    <div class="endpoint" id="screener-capacity">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="path">/screener_resource_capacity_allocation</span>
+                            <span class="description">Advanced capacity filtering with pre/post filters</span>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="endpoint-details">
+                                <h4>Description</h4>
+                                <p>Get resource capacity/allocation data with two-stage filtering:</p>
+                                <ul>
+                                    <li><strong>Pre-filters:</strong> Applied at database level (project_id) - Fast</li>
+                                    <li><strong>Post-filters:</strong> Applied after calculation (hours, costs, availability) - Flexible</li>
+                                </ul>
+                                
+                                <h4>Request Body</h4>
+                                <div class="code-container">
+                                    <pre><code class="language-json">{
+  "resource_ids": [1, 2, 3, 4, 5],
+  "start_date": "2025-01-01",
+  "end_date": "2025-12-31",
+  "interval": "Monthly",
+  "pre_filters": [
+    {
+      "field": "project_id",
+      "operator": "=",
+      "value": 5
+    }
+  ],
+  "post_filters": [
+    {
+      "field": "allocation_hours_planned",
+      "operator": ">",
+      "value": 100
+    },
+    {
+      "field": "available_capacity",
+      "operator": "<",
+      "value": 50
+    }
+  ],
+  "response_fields": [
+    "start_date",
+    "end_date",
+    "total_capacity",
+    "allocation_hours_planned",
+    "available_capacity"
+  ]
+}</code></pre>
+                                    <button class="copy-btn" onclick="copyCode(this)">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+
+                                <div class="alert alert-warning">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <span><strong>Important:</strong> Both start_date AND end_date are required parameters!</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Examples Section -->
+            <section id="examples" class="section">
+                <div class="section-header">
+                    <h2>Complete Integration Examples</h2>
+                    <p>Real-world scenarios demonstrating comprehensive PMO API usage</p>
+                </div>
+
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <div class="example-header">
+                            <i class="fas fa-chart-line"></i>
+                            <h3>Complete Project Dashboard</h3>
+                        </div>
+                        <div class="example-content">
+                            <p>Build a comprehensive project dashboard with allocations, progress, and resource utilization</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Step 1: Get all active projects
+$activeProjects = Invoke-WebRequest -Uri "http://localhost:5000/screener_projects" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{"filters":[{"column":"current_status","operator":"=","value":"Active"}],"logical_operator":"AND","fields":["project_id","project_name","strategic_portfolio"]}' | 
+  ConvertFrom-Json
+
+# Step 2: Get allocations and progress for each project
+foreach ($project in $activeProjects) {
+    $allocations = Invoke-WebRequest -Uri "http://localhost:5000/allocations/project?project_ids=$($project.project_id)" | ConvertFrom-Json
+    $summary = Invoke-WebRequest -Uri "http://localhost:5000/allocations/project_summary?project_ids=$($project.project_id)" | ConvertFrom-Json
+    
+    Write-Host "📊 Project: $($project.project_name)" -ForegroundColor Yellow
+    Write-Host "   Portfolio: $($project.strategic_portfolio)" -ForegroundColor White
+    Write-Host "   Planned Hours: $($summary.($project.project_id).total_resource_hours_planned)" -ForegroundColor Green
+    Write-Host "   Actual Hours: $($summary.($project.project_id).total_resource_hours_actual)" -ForegroundColor Blue
+    Write-Host "   Progress: $([math]::Round(($summary.($project.project_id).total_resource_hours_actual / $summary.($project.project_id).total_resource_hours_planned) * 100, 1))%" -ForegroundColor Cyan
+}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-header">
+                            <i class="fas fa-users-cog"></i>
+                            <h3>Resource Capacity Planning</h3>
+                        </div>
+                        <div class="example-content">
+                            <p>Comprehensive resource capacity analysis with time-off and allocation tracking</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Step 1: Get all resources and their time-off
+$resources = (Invoke-WebRequest -Uri "http://localhost:5000/resources").Content | ConvertFrom-Json
+$allTimeOff = (Invoke-WebRequest -Uri "http://localhost:5000/timeoff").Content | ConvertFrom-Json
+
+# Step 2: Analyze capacity for Q1 2025
+$startDate = "2025-01-01"
+$endDate = "2025-03-31"
+
+foreach ($resource in $resources[0..5]) {  # First 5 resources for demo
+    $capacity = Invoke-WebRequest -Uri "http://localhost:5000/resource_capacity?resource_id=$($resource.resource_id)&start_date=$startDate&end_date=$endDate&interval=Monthly" | ConvertFrom-Json
+    $timeOff = $allTimeOff | Where-Object { $_.resource_id -eq $resource.resource_id }
+    
+    Write-Host "👤 $($resource.resource_name) ($($resource.resource_role))" -ForegroundColor Yellow
+    
+    foreach ($month in $capacity) {
+        $timeOffHours = ($timeOff | Where-Object { 
+            $_.timeoff_start_date -le $month.end_date -and 
+            $_.timeoff_end_date -ge $month.start_date 
+        } | Measure-Object).Count * 40  # Assume 40 hours per week off
+        
+        $availableHours = $month.total_capacity - $month.allocation_hours_planned - $timeOffHours
+        $utilizationPct = [math]::Round(($month.allocation_hours_planned / $month.total_capacity) * 100, 1)
+        
+        Write-Host "   📅 $($month.start_date) to $($month.end_date): $utilizationPct% utilized, $availableHours hrs available" -ForegroundColor White
+    }
+}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-header">
+                            <i class="fas fa-sitemap"></i>
+                            <h3>Organizational Analytics</h3>
+                        </div>
+                        <div class="example-content">
+                            <p>Cross-API analysis combining projects, resources, business lines, and managers</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Comprehensive organizational analysis
+$businessLines = (Invoke-WebRequest -Uri "http://localhost:5000/business_lines").Content | ConvertFrom-Json
+$managers = (Invoke-WebRequest -Uri "http://localhost:5000/managers").Content | ConvertFrom-Json
+$projects = (Invoke-WebRequest -Uri "http://localhost:5000/projects").Content | ConvertFrom-Json
+$resources = (Invoke-WebRequest -Uri "http://localhost:5000/resources").Content | ConvertFrom-Json
+
+# Analyze by strategic portfolio
+$portfolioAnalysis = $businessLines | Group-Object strategic_portfolio | ForEach-Object {
+    $portfolio = $_.Name
+    $portfolioProjects = $projects | Where-Object { $_.strategic_portfolio -eq $portfolio }
+    $portfolioResources = $resources | Where-Object { $_.strategic_portfolio -eq $portfolio }
+    $portfolioManager = $managers | Where-Object { $_.strategic_portfolio -eq $portfolio }
+    
+    @{
+        Portfolio = $portfolio
+        ProductLines = ($_.Group.product_line | Sort-Object -Unique) -join ", "
+        ProjectCount = $portfolioProjects.Count
+        ResourceCount = $portfolioResources.Count
+        TotalPlannedHours = ($portfolioProjects | Measure-Object project_resource_hours_planned -Sum).Sum
+        TotalPlannedCost = ($portfolioProjects | Measure-Object project_resource_cost_planned -Sum).Sum
+        Manager = $portfolioManager.manager_name -join ", "
+        ManagerEmail = $portfolioManager.manager_email -join ", "
+    }
+}
+
+# Display results
+Write-Host "🏢 ORGANIZATIONAL PORTFOLIO ANALYSIS" -ForegroundColor Green
+Write-Host "====================================" -ForegroundColor Green
+$portfolioAnalysis | Format-Table -AutoSize
+
+# Find top resource roles by cost
+$roleCosts = $resources | Group-Object resource_role | ForEach-Object {
+    @{
+        Role = $_.Name
+        Count = $_.Count
+        TotalCapacity = ($_.Group | Measure-Object yearly_capacity -Sum).Sum
+        AvgCapacity = ($_.Group | Measure-Object yearly_capacity -Average).Average
+    }
+} | Sort-Object Count -Descending
+
+Write-Host "`n👥 TOP RESOURCE ROLES" -ForegroundColor Blue
+$roleCosts | Select-Object -First 5 | Format-Table -AutoSize</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-header">
+                            <i class="fas fa-upload"></i>
+                            <h3>Bulk Data Management</h3>
+                        </div>
+                        <div class="example-content">
+                            <p>Import project data and create allocations with validation</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Step 1: Import new projects from Excel
+Write-Host "📥 Importing projects from Excel..." -ForegroundColor Yellow
+$projectFile = "C:\data\Q2_Projects.xlsx"
+$importResult = Invoke-WebRequest -Uri "http://localhost:5000/excel_to_db" -Method POST -Form @{
+    table_name = "projects"
+    file = Get-Item $projectFile
+}
+Write-Host "✅ Import completed: $($importResult.Content)" -ForegroundColor Green
+
+# Step 2: Get newly imported projects
+$newProjects = Invoke-WebRequest -Uri "http://localhost:5000/screener_projects" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{"filters":[{"column":"current_status","operator":"=","value":"Planning"}],"logical_operator":"AND","fields":["project_id","project_name"]}' |
+  ConvertFrom-Json
+
+# Step 3: Get available developers for allocation
+$availableDevs = Invoke-WebRequest -Uri "http://localhost:5000/screener_resources" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{"filters":[{"column":"resource_role","operator":"=","value":"Full Stack Developer"}],"logical_operator":"AND","fields":["resource_id","resource_name"]}' |
+  ConvertFrom-Json
+
+# Step 4: Create sample allocations
+$nextAllocId = (Invoke-WebRequest -Uri "http://localhost:5000/allocations/next_allocation_id").Content | ConvertFrom-Json
+$allocations = @()
+
+foreach ($project in $newProjects[0..2]) {  # First 3 projects
+    foreach ($dev in $availableDevs[0..1]) {  # First 2 developers
+        $allocations += @{
+            allocation_id = $nextAllocId.next_allocation_id++
+            project_id = $project.project_id
+            resource_id = $dev.resource_id
+            allocation_start_date = "2025-04-01"
+            allocation_end_date = "2025-06-30"
+            allocation_pct = 50
+        }
+    }
+}
+
+# Step 5: Submit bulk allocations
+$allocationResult = Invoke-WebRequest -Uri "http://localhost:5000/allocate" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body ($allocations | ConvertTo-Json)
+
+Write-Host "✅ Created $($allocations.Count) allocations" -ForegroundColor Green</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Reference -->
+                <div class="quick-reference">
+                    <div class="section-header">
+                        <h3>API Quick Reference</h3>
+                        <p>Essential endpoints for common operations</p>
+                    </div>
+                    
+                    <div class="reference-grid">
+                        <div class="reference-category">
+                            <h4>🔍 Data Discovery</h4>
+                            <ul>
+                                <li><code>GET /projects</code> - All projects</li>
+                                <li><code>GET /resources</code> - All resources</li>
+                                <li><code>GET /business_lines</code> - Organization structure</li>
+                                <li><code>GET /managers</code> - Manager directory</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="reference-category">
+                            <h4>🎯 Dynamic Filtering</h4>
+                            <ul>
+                                <li><code>POST /screener_projects</code> - Project queries</li>
+                                <li><code>POST /screener_resources</code> - Resource queries</li>
+                                <li><code>POST /screener_resource_capacity_allocation</code> - Capacity queries</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="reference-category">
+                            <h4>📊 Analytics & Reporting</h4>
+                            <ul>
+                                <li><code>GET /allocations/project_summary</code> - Project summaries</li>
+                                <li><code>GET /allocations/resource_role_summary</code> - Role analysis</li>
+                                <li><code>GET /resource_capacity</code> - Capacity planning</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="reference-category">
+                            <h4>⚡ Operations</h4>
+                            <ul>
+                                <li><code>POST /allocate</code> - Create allocations</li>
+                                <li><code>POST /timeoff</code> - Add time-off</li>
+                                <li><code>POST /excel_to_db</code> - Bulk import</li>
+                                <li><code>POST /projects</code> - Create/update projects</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h4>PMO API Documentation</h4>
+                        <p>Comprehensive Project Management Office API for enterprise resource and project management.</p>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="#overview">Overview</a></li>
+                            <li><a href="#getting-started">Getting Started</a></li>
+                            <li><a href="#endpoints">API Reference</a></li>
+                            <li><a href="#examples">Examples</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Support</h4>
+                        <p>For technical support and questions, please contact the development team.</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 PMO API Documentation. Built with ❤️ for developers.</p>
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

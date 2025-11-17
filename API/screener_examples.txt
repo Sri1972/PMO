@@ -1,0 +1,397 @@
+================================================================================
+SCREENER API - CURL EXAMPLES
+================================================================================
+
+This file contains examples for all 3 screener endpoints.
+Examples are provided for both PowerShell (using Invoke-WebRequest) and CMD/Bash (using curl).
+
+NOTE: Replace http://localhost:5000 with your actual API base URL
+
+IMPORTANT: For resource capacity allocation endpoint, both start_date AND end_date are required parameters!
+
+================================================================================
+1. PROJECT SCREENER - /screener_projects
+================================================================================
+
+Description: Filter projects with dynamic criteria and select specific fields
+
+--------------------------------------------------------------------------------
+POWERSHELL VERSION:
+--------------------------------------------------------------------------------
+
+# Example 1: Get active projects in "Market & Sell" portfolio
+Invoke-WebRequest -Uri "http://localhost:5000/screener_projects" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{
+    "filters": [
+      {"column": "strategic_portfolio", "operator": "=", "value": "Market & Sell"}
+    ],
+    "logical_operator": "AND",
+    "fields": ["project_id", "project_name", "strategic_portfolio", "current_status", "resource_hours_planned", "resource_cost_planned"]
+  }'
+
+# Example Output:
+# Status Code: 200
+# Record Count: 8
+# Sample Data: [{"project_id": 2, "project_name": "Blade Runner 3.0", "strategic_portfolio": "Market & Sell", "current_status": "", ...}, ...]
+
+# Example 2: Get all fields for technology projects
+Invoke-WebRequest -Uri "http://localhost:5000/screener_projects" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{
+    "filters": [
+      {"column": "technology_project", "operator": "=", "value": "Yes"}
+    ],
+    "logical_operator": "AND",
+    "fields": ["all"]
+  }'
+
+# Example 3: Get projects with specific IDs using IN operator
+Invoke-WebRequest -Uri "http://localhost:5000/screener_projects" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{
+    "filters": [
+      {"column": "project_id", "operator": "IN", "value": [1, 2, 3, 4, 5]}
+    ],
+    "logical_operator": "AND",
+    "fields": ["project_id", "project_name", "current_status", "rag_status"]
+  }'
+
+# Example 4: Search projects with LIKE operator (contains "Digital")
+Invoke-WebRequest -Uri "http://localhost:5000/screener_projects" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{
+    "filters": [
+      {"column": "project_name", "operator": "LIKE", "value": "%Digital%"}
+    ],
+    "logical_operator": "AND",
+    "fields": ["project_id", "project_name", "product_line", "strategic_portfolio"]
+  }'
+
+# Example 5: Get projects with OR logic (Active OR On Hold)
+Invoke-WebRequest -Uri "http://localhost:5000/screener_projects" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{
+    "filters": [
+      {"column": "current_status", "operator": "=", "value": "Active"},
+      {"column": "current_status", "operator": "=", "value": "On Hold"}
+    ],
+    "logical_operator": "OR",
+    "fields": ["project_id", "project_name", "current_status", "rag_status"]
+  }'
+
+--------------------------------------------------------------------------------
+CMD/BASH VERSION:
+--------------------------------------------------------------------------------
+
+# Example 1: Get active projects in "Market & Sell" portfolio
+curl -X POST "http://localhost:5000/screener_projects" ^
+  -H "Content-Type: application/json" ^
+  -d "{\"filters\": [{\"column\": \"strategic_portfolio\", \"operator\": \"=\", \"value\": \"Market & Sell\"}, {\"column\": \"current_status\", \"operator\": \"=\", \"value\": \"Active\"}], \"logical_operator\": \"AND\", \"fields\": [\"project_id\", \"project_name\", \"strategic_portfolio\", \"current_status\", \"resource_hours_planned\", \"resource_cost_planned\"]}"
+
+# Example 2: Get all fields for technology projects
+curl -X POST "http://localhost:5000/screener_projects" ^
+  -H "Content-Type: application/json" ^
+  -d "{\"filters\": [{\"column\": \"technology_project\", \"operator\": \"=\", \"value\": \"Yes\"}], \"logical_operator\": \"AND\", \"fields\": [\"all\"]}"
+
+# Example 3: Get projects with specific IDs using IN operator
+curl -X POST "http://localhost:5000/screener_projects" ^
+  -H "Content-Type: application/json" ^
+  -d "{\"filters\": [{\"column\": \"project_id\", \"operator\": \"IN\", \"value\": [1, 2, 3, 4, 5]}], \"logical_operator\": \"AND\", \"fields\": [\"project_id\", \"project_name\", \"current_status\", \"rag_status\"]}"
+
+
+================================================================================
+2. RESOURCE SCREENER - /screener_resources
+================================================================================
+
+Description: Filter resources with dynamic criteria and select specific fields
+
+--------------------------------------------------------------------------------
+POWERSHELL VERSION:
+--------------------------------------------------------------------------------
+
+# Example 1: Get Full Stack Developers in "Market & Sell" portfolio
+Invoke-WebRequest -Uri "http://localhost:5000/screener_resources" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{
+    "filters": [
+      {"column": "resource_role", "operator": "=", "value": "Full Stack Developer"},
+      {"column": "strategic_portfolio", "operator": "=", "value": "Market & Sell"}
+    ],
+    "logical_operator": "AND",
+    "fields": ["resource_id", "resource_name", "resource_role", "resource_email", "strategic_portfolio", "product_line"]
+  }'
+
+# Example 2: Get all resources with all fields
+Invoke-WebRequest -Uri "http://localhost:5000/screener_resources" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{
+    "filters": [],
+    "logical_operator": "AND",
+    "fields": ["all"]
+  }'
+
+# Example Output:
+# Status Code: 200
+# Record Count: 9
+# Sample Data: [{"resource_id": 1, "resource_name": "Srikanth Chakravarthy", "resource_role": "VP, Technology", ...}, ...]
+
+# Example 3: Get resources with specific IDs
+Invoke-WebRequest -Uri "http://localhost:5000/screener_resources" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{
+    "filters": [
+      {"column": "resource_id", "operator": "IN", "value": [1, 2, 3, 4, 5]}
+    ],
+    "logical_operator": "AND",
+    "fields": ["resource_id", "resource_name", "resource_email", "resource_role", "yearly_capacity"]
+  }'
+
+# Example 4: Find resources by manager
+Invoke-WebRequest -Uri "http://localhost:5000/screener_resources" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{
+    "filters": [
+      {"column": "manager_name", "operator": "=", "value": "John Smith"}
+    ],
+    "logical_operator": "AND",
+    "fields": ["resource_id", "resource_name", "resource_role", "manager_name", "manager_email"]
+  }'
+
+# Example 5: Search resources with LIKE operator (name contains "Smith")
+Invoke-WebRequest -Uri "http://localhost:5000/screener_resources" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{
+    "filters": [
+      {"column": "resource_name", "operator": "LIKE", "value": "%Smith%"}
+    ],
+    "logical_operator": "AND",
+    "fields": ["resource_id", "resource_name", "resource_email", "resource_role"]
+  }'
+
+--------------------------------------------------------------------------------
+CMD/BASH VERSION:
+--------------------------------------------------------------------------------
+
+# Example 1: Get Full Stack Developers in "Market & Sell" portfolio
+curl -X POST "http://localhost:5000/screener_resources" ^
+  -H "Content-Type: application/json" ^
+  -d "{\"filters\": [{\"column\": \"resource_role\", \"operator\": \"=\", \"value\": \"Full Stack Developer\"}, {\"column\": \"strategic_portfolio\", \"operator\": \"=\", \"value\": \"Market & Sell\"}], \"logical_operator\": \"AND\", \"fields\": [\"resource_id\", \"resource_name\", \"resource_role\", \"resource_email\", \"strategic_portfolio\", \"product_line\"]}"
+
+# Example 2: Get all resources with all fields
+curl -X POST "http://localhost:5000/screener_resources" ^
+  -H "Content-Type: application/json" ^
+  -d "{\"filters\": [], \"logical_operator\": \"AND\", \"fields\": [\"all\"]}"
+
+# Example 3: Get resources with specific IDs
+curl -X POST "http://localhost:5000/screener_resources" ^
+  -H "Content-Type: application/json" ^
+  -d "{\"filters\": [{\"column\": \"resource_id\", \"operator\": \"IN\", \"value\": [1, 2, 3, 4, 5]}], \"logical_operator\": \"AND\", \"fields\": [\"resource_id\", \"resource_name\", \"resource_email\", \"resource_role\", \"yearly_capacity\"]}"
+
+
+================================================================================
+3. RESOURCE CAPACITY ALLOCATION SCREENER - /screener_resource_capacity_allocation
+================================================================================
+
+Description: Get resource capacity/allocation with two-stage filtering
+- PRE-FILTERS: Applied at database level (project_id) - FAST
+- POST-FILTERS: Applied after calculation (hours, costs, availability) - Flexible
+
+--------------------------------------------------------------------------------
+POWERSHELL VERSION:
+--------------------------------------------------------------------------------
+
+# Example 1: Find over-allocated resources (high allocation, low availability)
+Invoke-WebRequest -Uri "http://localhost:5000/screener_resource_capacity_allocation" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{
+    "resource_ids": [1, 2, 3, 4, 5],
+    "start_date": "2025-01-01",
+    "end_date": "2025-12-31",
+    "interval": "Monthly",
+    "post_filters": [
+      {"field": "allocation_hours_planned", "operator": ">", "value": 100},
+      {"field": "available_capacity", "operator": "<", "value": 50}
+    ],
+    "response_fields": ["start_date", "end_date", "total_capacity", "allocation_hours_planned", "available_capacity"]
+  }'
+
+# Example 2: Get capacity for specific project (using pre-filter)
+Invoke-WebRequest -Uri "http://localhost:5000/screener_resource_capacity_allocation" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{
+    "resource_ids": [1, 2, 3],
+    "start_date": "2025-01-01",
+    "end_date": "2025-06-30",
+    "interval": "Monthly",
+    "pre_filters": [
+      {"field": "project_id", "operator": "=", "value": 5}
+    ],
+    "response_fields": ["start_date", "end_date", "allocation_hours_planned", "allocation_cost_planned"]
+  }'
+
+# Example 3: Find resources with high availability (under-allocated)
+Invoke-WebRequest -Uri "http://localhost:5000/screener_resource_capacity_allocation" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{
+    "resource_ids": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    "start_date": "2025-11-01",
+    "end_date": "2025-12-31",
+    "interval": "Monthly",
+    "post_filters": [
+      {"field": "available_capacity", "operator": ">", "value": 120}
+    ],
+    "response_fields": ["start_date", "end_date", "total_capacity", "allocation_hours_planned", "available_capacity"]
+  }'
+
+# Example 4: Get weekly breakdown with all fields (no filters)
+Invoke-WebRequest -Uri "http://localhost:5000/screener_resource_capacity_allocation" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{
+    "resource_ids": [1, 2],
+    "start_date": "2025-10-01",
+    "end_date": "2025-10-31",
+    "interval": "Weekly",
+    "response_fields": []
+  }'
+
+# Example Output:
+# Status Code: 200
+# Resource Count: 2
+# Sample Data: [{"resource_details": {"resource_id": 1, "resource_name": "Srikanth Chakravarthy", ...}, "data": [{"start_date": "2025-10-01", "end_date": "2025-10-06", "allocation_hours_planned": 0.0}, ...]}, ...]
+
+# Example 5: Find expensive allocations (high cost)
+Invoke-WebRequest -Uri "http://localhost:5000/screener_resource_capacity_allocation" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{
+    "resource_ids": [1, 2, 3, 4, 5],
+    "start_date": "2025-01-01",
+    "end_date": "2025-12-31",
+    "interval": "Monthly",
+    "post_filters": [
+      {"field": "allocation_hours_planned", "operator": ">", "value": 100}
+    ],
+    "response_fields": ["start_date", "end_date", "allocation_hours_planned"]
+  }'
+
+--------------------------------------------------------------------------------
+CMD/BASH VERSION:
+--------------------------------------------------------------------------------
+
+# Example 1: Find over-allocated resources
+curl -X POST "http://localhost:5000/screener_resource_capacity_allocation" ^
+  -H "Content-Type: application/json" ^
+  -d "{\"resource_ids\": [1, 2, 3, 4, 5], \"start_date\": \"2025-01-01\", \"end_date\": \"2025-12-31\", \"interval\": \"Monthly\", \"post_filters\": [{\"field\": \"allocation_hours_planned\", \"operator\": \">\", \"value\": 100}, {\"field\": \"available_capacity\", \"operator\": \"<\", \"value\": 50}], \"response_fields\": [\"start_date\", \"end_date\", \"total_capacity\", \"allocation_hours_planned\", \"available_capacity\"]}"
+
+# Example 2: Get capacity for specific project
+curl -X POST "http://localhost:5000/screener_resource_capacity_allocation" ^
+  -H "Content-Type: application/json" ^
+  -d "{\"resource_ids\": [1, 2, 3], \"start_date\": \"2025-01-01\", \"end_date\": \"2025-06-30\", \"interval\": \"Monthly\", \"pre_filters\": [{\"field\": \"project_id\", \"operator\": \"=\", \"value\": 5}], \"response_fields\": [\"start_date\", \"end_date\", \"allocation_hours_planned\", \"allocation_cost_planned\"]}"
+
+# Example 3: Find resources with high availability
+curl -X POST "http://localhost:5000/screener_resource_capacity_allocation" ^
+  -H "Content-Type: application/json" ^
+  -d "{\"resource_ids\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], \"start_date\": \"2025-11-01\", \"end_date\": \"2025-12-31\", \"interval\": \"Monthly\", \"post_filters\": [{\"field\": \"available_capacity\", \"operator\": \">\", \"value\": 120}], \"response_fields\": [\"start_date\", \"end_date\", \"total_capacity\", \"allocation_hours_planned\", \"available_capacity\"]}"
+
+
+================================================================================
+AVAILABLE FILTERS AND FIELDS
+================================================================================
+
+PROJECT SCREENER - Available Columns for Filtering:
+- project_id, project_name, strategic_portfolio, product_line, project_type
+- current_status, rag_status, technology_project, vitality, strategic
+- start_date_est, end_date_est, start_date_actual, end_date_actual
+- project_description, aim, comments, timesheet_project_name
+- revenue_est_growth_pa, revenue_est_current_year, revenue_est_current_year_plus_1
+- revenue_est_current_year_plus_2, revenue_est_current_year_plus_3
+
+PROJECT SCREENER - Available Fields for Response:
+- All database columns above PLUS calculated fields:
+  - resource_hours_planned, resource_cost_planned (calculated)
+  - resource_hours_actual, resource_cost_actual (calculated)
+  - resource_role_summary (calculated)
+
+RESOURCE SCREENER - Available Columns:
+- resource_id, resource_name, resource_email, resource_type
+- strategic_portfolio, product_line, manager_name, manager_email
+- resource_role, responsibility, skillset, comments
+- yearly_capacity, timesheet_resource_name
+
+CAPACITY ALLOCATION - Pre-Filters (database level):
+- project_id
+
+CAPACITY ALLOCATION - Post-Filters (calculated fields):
+- total_capacity, allocation_hours_planned, allocation_hours_actual
+- available_capacity, allocation_cost_planned, allocation_cost_actual
+- Or any field in project_allocation_details
+
+CAPACITY ALLOCATION - Available Intervals:
+- "Weekly" - Weekly breakdown
+- "Monthly" - Monthly breakdown  
+- "" (empty) or null - Block-level breakdown
+
+OPERATORS SUPPORTED:
+- = (equals)
+- != (not equals)
+- > (greater than)
+- < (less than)
+- >= (greater than or equal)
+- <= (less than or equal)
+- LIKE (pattern matching with %, e.g., "%keyword%")
+- IN (value in list, e.g., [1, 2, 3])
+
+LOGICAL OPERATORS:
+- "AND" - All filters must match
+- "OR" - Any filter must match
+
+================================================================================
+TIPS FOR USAGE
+================================================================================
+
+1. Always use double quotes for JSON keys and string values
+2. In PowerShell, use Invoke-WebRequest with -Headers @{"Content-Type"="application/json"} and -Body parameters
+3. In PowerShell, use backtick (`) for line continuation
+4. In CMD, use caret (^) for line continuation
+5. In PowerShell, no need to escape quotes in the JSON body (unlike curl)
+6. In CMD/Bash with curl, escape quotes with backslash (\") in the JSON body
+7. Use ["all"] in fields to get all available fields
+8. Use empty filters [] to get all records (no filtering)
+9. For calculated fields, they may take longer to compute
+10. Pre-filters are faster than post-filters for capacity allocation
+11. Use response_fields to limit the data returned and improve performance
+12. Test with small datasets first before querying large date ranges
+13. PowerShell's curl is an alias to Invoke-WebRequest, so use native Invoke-WebRequest for better compatibility
+
+================================================================================
+HOW TO FORMAT AND VIEW JSON OUTPUT IN POWERSHELL
+================================================================================
+
+# Method 1: Store response and format JSON nicely
+$response = Invoke-WebRequest -Uri "http://localhost:5000/screener_projects" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{"filters": [], "logical_operator": "AND", "fields": ["project_id", "project_name"]}'
+
+$data = $response.Content | ConvertFrom-Json
+Write-Host "Status Code: $($response.StatusCode)"
+Write-Host "Record Count: $($data.Count)"
+$data | ConvertTo-Json -Depth 5
+
+# Method 2: Show just the first few records
+$data | Select-Object -First 3 | ConvertTo-Json -Depth 5
+
+# Method 3: Filter and display specific fields
+$data | Select-Object project_id, project_name | Format-Table -AutoSize
+
+# Method 4: For capacity allocation - show resource details and data count
+$response = Invoke-WebRequest -Uri "http://localhost:5000/screener_resource_capacity_allocation" -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{"resource_ids": [1, 2], "start_date": "2025-01-01", "end_date": "2025-03-31", "interval": "Monthly", "response_fields": []}'
+
+$data = $response.Content | ConvertFrom-Json
+Write-Host "Resource Count: $($data.Count)"
+foreach ($resource in $data) {
+    Write-Host "Resource: $($resource.resource_details.resource_name) - Data Points: $($resource.data.Count)"
+}
+
+================================================================================

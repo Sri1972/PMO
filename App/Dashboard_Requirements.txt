@@ -1,0 +1,12 @@
+Project Dashboard (Checkboxes: All, P&B, M&S, VIU)
+- Project Types (Pie)
+- Number of resources based on role (Pie)
+- Grand total capacity, allocation hours (bar - tooltip with resource details)
+- Grand total capacity, allocation cost  (bar - tooltip with resource details)
+- List of projects (bar charts for each) - capacity, allocation hours with tooltip)
+
+Resources Dashboard (Checkboxes: All, P&B, M&S, VIU)
+- Grand total capacity, allocation hours (bar - tooltip with resource details) -> 
+- List of projects (bar charts for each) - capacity, allocation hours with tooltip)
+- Cumulative resource capacity, allocation hours over time for the portofolio/product line  (large line chart)
+- Individual resource capacity, allocation hours over time for each resource (small line chart)

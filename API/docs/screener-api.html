@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screener API - PMO API Documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-search"></i>
+                <span>Screener API</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="modules.html" class="nav-link">Modules</a></li>
+                <li><a href="#dynamic-querying" class="nav-link active">Dynamic Queries</a></li>
+                <li><a href="#operators" class="nav-link">Operators</a></li>
+                <li><a href="#examples" class="nav-link">Examples</a></li>
+            </ul>
+            <button class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <h4>Screener Endpoints</h4>
+                <ul>
+                    <li><a href="#projects-screener">Projects Screener</a></li>
+                    <li><a href="#resources-screener">Resources Screener</a></li>
+                    <li><a href="#capacity-screener">Capacity Screener</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h4>Query Operators</h4>
+                <ul>
+                    <li><a href="#comparison-operators">Comparison</a></li>
+                    <li><a href="#text-operators">Text Search</a></li>
+                    <li><a href="#list-operators">List Operations</a></li>
+                    <li><a href="#date-operators">Date Operations</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h4>Advanced Features</h4>
+                <ul>
+                    <li><a href="#logical-combinations">Logical Combinations</a></li>
+                    <li><a href="#field-selection">Field Selection</a></li>
+                    <li><a href="#complex-examples">Complex Examples</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="projects-api.html">Projects API</a></li>
+                    <li><a href="resources-api.html">Resources API</a></li>
+                    <li><a href="modules.html">All Modules</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1><i class="fas fa-search"></i> Screener API Documentation</h1>
+                    <p>Advanced dynamic query engine for projects, resources, and capacity allocation data with powerful filtering and field selection capabilities</p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <strong>3</strong>
+                            <span>Core Endpoints</span>
+                        </div>
+                        <div class="stat">
+                            <strong>15+</strong>
+                            <span>Query Operators</span>
+                        </div>
+                        <div class="stat">
+                            <strong>✓</strong>
+                            <span>Dynamic Filtering</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dynamic Querying Section -->
+            <section id="dynamic-querying" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-cogs"></i> Dynamic Query Endpoints</h2>
+                    <p>Powerful endpoints for building custom queries with complex filtering logic</p>
+                </div>
+
+                <div class="api-group">
+                    <div class="endpoint" id="projects-screener">
+                        <div class="endpoint-header">
+                            <div class="method-path">
+                                <span class="method post">POST</span>
+                                <span class="path">/screener_projects_dynamic</span>
+                            </div>
+                            <div class="endpoint-summary">Dynamic project filtering with custom conditions</div>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="description">
+                                <p>Advanced project filtering endpoint that supports complex query conditions, logical operators, and custom field selection. Perfect for building custom dashboards and reports.</p>
+                            </div>
+                            
+                            <div class="request-body">
+                                <h4>Request Body Schema</h4>
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Type</th>
+                                            <th>Required</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>conditions</code></td>
+                                            <td>array</td>
+                                            <td>No</td>
+                                            <td>Array of query conditions</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>logical_operator</code></td>
+                                            <td>string</td>
+                                            <td>No</td>
+                                            <td>"AND" or "OR" (default: "AND")</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>fields</code></td>
+                                            <td>array</td>
+                                            <td>No</td>
+                                            <td>Specific fields to return</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="response-schema">
+                                <h4>Condition Object Schema</h4>
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>field</code></td>
+                                            <td>string</td>
+                                            <td>Database field name to filter on</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>operator</code></td>
+                                            <td>string</td>
+                                            <td>Comparison operator (see operators section)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>value</code></td>
+                                            <td>any</td>
+                                            <td>Value to compare against</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>PowerShell Example - Basic Project Filtering</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Find active technology projects
+$query = @{
+    conditions = @(
+        @{
+            field = "current_status"
+            operator = "eq"
+            value = "In Progress"
+        },
+        @{
+            field = "strategic_portfolio"
+            operator = "eq"
+            value = "Technology"
+        }
+    )
+    logical_operator = "AND"
+    fields = @(
+        "project_name",
+        "strategic_portfolio", 
+        "current_status",
+        "resource_hours_planned",
+        "start_date_est",
+        "end_date_est"
+    )
+} | ConvertTo-Json -Depth 3
+
+$response = Invoke-WebRequest -Uri "http://localhost:5000/screener_projects_dynamic" -Method POST -Body $query -ContentType "application/json"
+$projects = $response.Content | ConvertFrom-Json
+
+Write-Host "Active Technology Projects Found: $($projects.Count)"
+$projects | Format-Table project_name, current_status, resource_hours_planned</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="example">
+                                <h4>PowerShell Example - Complex Project Query</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Find high-value projects with specific criteria
+$query = @{
+    conditions = @(
+        @{
+            field = "revenue_est_current_year"
+            operator = "gte"
+            value = 100000
+        },
+        @{
+            field = "current_status"
+            operator = "in"
+            value = @("In Progress", "Planning", "Active")
+        },
+        @{
+            field = "project_name"
+            operator = "contains"
+            value = "Development"
+        }
+    )
+    logical_operator = "AND"
+    fields = @("all")  # Get all available fields
+} | ConvertTo-Json -Depth 3
+
+$response = Invoke-WebRequest -Uri "http://localhost:5000/screener_projects_dynamic" -Method POST -Body $query -ContentType "application/json"
+$projects = $response.Content | ConvertFrom-Json
+
+foreach ($project in $projects) {
+    Write-Host "Project: $($project.project_name)"
+    Write-Host "  Revenue: `$$($project.revenue_est_current_year)"
+    Write-Host "  Status: $($project.current_status)"
+    Write-Host "  Portfolio: $($project.strategic_portfolio)"
+    Write-Host ""
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="endpoint" id="resources-screener">
+                        <div class="endpoint-header">
+                            <div class="method-path">
+                                <span class="method post">POST</span>
+                                <span class="path">/screener_resources_dynamic</span>
+                            </div>
+                            <div class="endpoint-summary">Dynamic resource filtering with skill and role matching</div>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="description">
+                                <p>Powerful resource search endpoint for finding resources by skills, roles, availability, portfolio assignment, and other criteria. Essential for resource planning and allocation.</p>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>PowerShell Example - Find Resources by Skills</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Find developers with specific skills
+$query = @{
+    conditions = @(
+        @{
+            field = "resource_role"
+            operator = "contains"
+            value = "Developer"
+        },
+        @{
+            field = "skillset"
+            operator = "contains"
+            value = "Python"
+        },
+        @{
+            field = "strategic_portfolio"
+            operator = "eq"
+            value = "Technology"
+        }
+    )
+    logical_operator = "AND"
+    fields = @(
+        "resource_name",
+        "resource_role",
+        "skillset",
+        "strategic_portfolio",
+        "yearly_capacity",
+        "manager_name"
+    )
+} | ConvertTo-Json -Depth 3
+
+$response = Invoke-WebRequest -Uri "http://localhost:5000/screener_resources_dynamic" -Method POST -Body $query -ContentType "application/json"
+$resources = $response.Content | ConvertFrom-Json
+
+Write-Host "Python Developers Found: $($resources.Count)"
+Write-Host ""
+
+foreach ($resource in $resources) {
+    Write-Host "Name: $($resource.resource_name)"
+    Write-Host "  Role: $($resource.resource_role)"
+    Write-Host "  Skills: $($resource.skillset)"
+    Write-Host "  Capacity: $($resource.yearly_capacity) hours/year"
+    Write-Host "  Manager: $($resource.manager_name)"
+    Write-Host ""
+}</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="example">
+                                <h4>PowerShell Example - Resource Availability Search</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Find high-capacity resources in specific portfolio
+$query = @{
+    conditions = @(
+        @{
+            field = "yearly_capacity"
+            operator = "gte"
+            value = 2000
+        },
+        @{
+            field = "resource_type"
+            operator = "eq"
+            value = "Full-time"
+        },
+        @{
+            field = "strategic_portfolio"
+            operator = "in"
+            value = @("Technology", "Innovation")
+        }
+    )
+    logical_operator = "AND"
+    fields = @(
+        "resource_name",
+        "resource_email",
+        "resource_role",
+        "yearly_capacity",
+        "strategic_portfolio",
+        "product_line"
+    )
+} | ConvertTo-Json -Depth 3
+
+$response = Invoke-WebRequest -Uri "http://localhost:5000/screener_resources_dynamic" -Method POST -Body $query -ContentType "application/json"
+$resources = $response.Content | ConvertFrom-Json
+
+Write-Host "High-Capacity Resources Available:"
+$resources | Format-Table resource_name, resource_role, yearly_capacity, strategic_portfolio</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="endpoint" id="capacity-screener">
+                        <div class="endpoint-header">
+                            <div class="method-path">
+                                <span class="method post">POST</span>
+                                <span class="path">/screener_resource_capacity_allocation_dynamic</span>
+                            </div>
+                            <div class="endpoint-summary">Dynamic capacity allocation filtering with time-based analysis</div>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="description">
+                                <p>Advanced capacity allocation screening for identifying resource utilization patterns, availability windows, and allocation conflicts. Supports time-range filtering and capacity analysis.</p>
+                            </div>
+
+                            <div class="parameters">
+                                <h4>Special Query Parameters</h4>
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Parameter</th>
+                                            <th>Type</th>
+                                            <th>Required</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>start_date</code></td>
+                                            <td>date</td>
+                                            <td>Yes</td>
+                                            <td>Analysis start date (YYYY-MM-DD)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>end_date</code></td>
+                                            <td>date</td>
+                                            <td>Yes</td>
+                                            <td>Analysis end date (YYYY-MM-DD)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>PowerShell Example - Find Overallocated Resources</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Find resources with over 80% utilization
+$query = @{
+    conditions = @(
+        @{
+            field = "utilization_percentage"
+            operator = "gt"
+            value = 80
+        },
+        @{
+            field = "strategic_portfolio"
+            operator = "eq"
+            value = "Technology"
+        }
+    )
+    logical_operator = "AND"
+    start_date = "2024-01-01"
+    end_date = "2024-06-30"
+    fields = @(
+        "resource_name",
+        "resource_role",
+        "total_capacity",
+        "allocation_hours_planned",
+        "available_capacity",
+        "utilization_percentage"
+    )
+} | ConvertTo-Json -Depth 3
+
+$response = Invoke-WebRequest -Uri "http://localhost:5000/screener_resource_capacity_allocation_dynamic" -Method POST -Body $query -ContentType "application/json"
+$capacityData = $response.Content | ConvertFrom-Json
+
+Write-Host "Overallocated Resources (>80% utilization):"
+Write-Host "="*60
+
+foreach ($resource in $capacityData) {
+    $utilization = [math]::Round(($resource.allocation_hours_planned / $resource.total_capacity) * 100, 1)
+    Write-Host "Resource: $($resource.resource_name)"
+    Write-Host "  Role: $($resource.resource_role)"
+    Write-Host "  Total Capacity: $($resource.total_capacity) hours"
+    Write-Host "  Allocated: $($resource.allocation_hours_planned) hours"
+    Write-Host "  Available: $($resource.available_capacity) hours"
+    Write-Host "  Utilization: $utilization%"
+    Write-Host ""
+}</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="example">
+                                <h4>PowerShell Example - Find Available Capacity</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Find resources with significant available capacity
+$query = @{
+                            conditions = @(
+        @{
+            field = "available_capacity"
+            operator = "gte"
+            value = 200
+        },
+        @{
+            field = "resource_role"
+            operator = "contains"
+            value = "Developer"
+        }
+    )
+    logical_operator = "AND"
+    start_date = "2024-03-01"
+    end_date = "2024-09-30"
+    fields = @(
+        "resource_name",
+        "resource_role",
+        "strategic_portfolio",
+        "available_capacity",
+        "total_capacity"
+    )
+} | ConvertTo-Json -Depth 3
+
+$response = Invoke-WebRequest -Uri "http://localhost:5000/screener_resource_capacity_allocation_dynamic" -Method POST -Body $query -ContentType "application/json"
+$availableResources = $response.Content | ConvertFrom-Json
+
+Write-Host "Developers with Available Capacity (200+ hours):"
+$availableResources | Format-Table resource_name, resource_role, available_capacity, total_capacity</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Operators Section -->
+            <section id="operators" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-code"></i> Query Operators</h2>
+                    <p>Complete reference for all supported query operators and their usage</p>
+                </div>
+
+                <div class="grid grid-2">
+                    <div class="card" id="comparison-operators">
+                        <div class="card-header">
+                            <h3><i class="fas fa-equals"></i> Comparison Operators</h3>
+                        </div>
+                        <div class="card-content">
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Operator</th>
+                                        <th>Description</th>
+                                        <th>Example</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>eq</code></td>
+                                        <td>Equals</td>
+                                        <td><code>"status" eq "Active"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>ne</code></td>
+                                        <td>Not equals</td>
+                                        <td><code>"status" ne "Cancelled"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>gt</code></td>
+                                        <td>Greater than</td>
+                                        <td><code>"revenue" gt 50000</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>gte</code></td>
+                                        <td>Greater than or equal</td>
+                                        <td><code>"capacity" gte 2000</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>lt</code></td>
+                                        <td>Less than</td>
+                                        <td><code>"hours" lt 100</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>lte</code></td>
+                                        <td>Less than or equal</td>
+                                        <td><code>"cost" lte 10000</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card" id="text-operators">
+                        <div class="card-header">
+                            <h3><i class="fas fa-font"></i> Text Search Operators</h3>
+                        </div>
+                        <div class="card-content">
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Operator</th>
+                                        <th>Description</th>
+                                        <th>Example</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>contains</code></td>
+                                        <td>Contains substring</td>
+                                        <td><code>"name" contains "Development"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>not_contains</code></td>
+                                        <td>Does not contain</td>
+                                        <td><code>"desc" not_contains "Legacy"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>starts_with</code></td>
+                                        <td>Starts with text</td>
+                                        <td><code>"project" starts_with "PMO"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>ends_with</code></td>
+                                        <td>Ends with text</td>
+                                        <td><code>"email" ends_with "@company.com"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>like</code></td>
+                                        <td>SQL LIKE pattern</td>
+                                        <td><code>"name" like "%API%"</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card" id="list-operators">
+                        <div class="card-header">
+                            <h3><i class="fas fa-list"></i> List Operations</h3>
+                        </div>
+                        <div class="card-content">
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Operator</th>
+                                        <th>Description</th>
+                                        <th>Example</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>in</code></td>
+                                        <td>Value in list</td>
+                                        <td><code>"status" in ["Active", "Planning"]</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>not_in</code></td>
+                                        <td>Value not in list</td>
+                                        <td><code>"type" not_in ["Cancelled", "On Hold"]</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card" id="date-operators">
+                        <div class="card-header">
+                            <h3><i class="fas fa-calendar"></i> Date Operations</h3>
+                        </div>
+                        <div class="card-content">
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Operator</th>
+                                        <th>Description</th>
+                                        <th>Example</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>eq</code></td>
+                                        <td>Date equals</td>
+                                        <td><code>"start_date" eq "2024-01-01"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>gt</code></td>
+                                        <td>Date after</td>
+                                        <td><code>"end_date" gt "2024-06-30"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>between</code></td>
+                                        <td>Date range</td>
+                                        <td><code>"date" between ["2024-01-01", "2024-12-31"]</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Advanced Features Section -->
+            <section id="examples" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-brain"></i> Advanced Features & Examples</h2>
+                    <p>Complex query patterns and advanced usage scenarios</p>
+                </div>
+
+                <div class="api-group">
+                    <div class="endpoint" id="logical-combinations">
+                        <div class="endpoint-header">
+                            <div class="method-path">
+                                <span class="method post">POST</span>
+                                <span class="path">Logical Combinations</span>
+                            </div>
+                            <div class="endpoint-summary">Combining multiple conditions with AND/OR logic</div>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="example">
+                                <h4>PowerShell Example - Complex OR Logic</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Find projects that are either high-revenue OR strategic
+$query = @{
+    conditions = @(
+        @{
+            field = "revenue_est_current_year"
+            operator = "gte"
+            value = 200000
+        },
+        @{
+            field = "strategic"
+            operator = "eq"
+            value = "Core"
+        },
+        @{
+            field = "vitality"
+            operator = "eq"
+            value = "High"
+        }
+    )
+    logical_operator = "OR"  # Any condition can match
+    fields = @(
+        "project_name",
+        "strategic_portfolio",
+        "revenue_est_current_year",
+        "strategic",
+        "vitality",
+        "current_status"
+    )
+} | ConvertTo-Json -Depth 3
+
+$response = Invoke-WebRequest -Uri "http://localhost:5000/screener_projects_dynamic" -Method POST -Body $query -ContentType "application/json"
+$projects = $response.Content | ConvertFrom-Json
+
+Write-Host "High-Priority Projects (Revenue >= `$200k OR Strategic=Core OR Vitality=High):"
+foreach ($project in $projects) {
+    Write-Host "- $($project.project_name) ($($project.strategic_portfolio))"
+    Write-Host "  Revenue: `$$($project.revenue_est_current_year) | Strategic: $($project.strategic) | Vitality: $($project.vitality)"
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="endpoint" id="field-selection">
+                        <div class="endpoint-header">
+                            <div class="method-path">
+                                <span class="method post">POST</span>
+                                <span class="path">Field Selection</span>
+                            </div>
+                            <div class="endpoint-summary">Custom field selection for optimized responses</div>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="example">
+                                <h4>PowerShell Example - Custom Dashboard Data</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Get only fields needed for executive dashboard
+$query = @{
+    conditions = @(
+        @{
+            field = "current_status"
+            operator = "in"
+            value = @("In Progress", "Planning", "Active")
+        }
+    )
+    fields = @(
+        "project_name",
+        "strategic_portfolio",
+        "current_status",
+        "rag_status",
+        "start_date_est",
+        "end_date_est",
+        "resource_hours_planned",
+        "resource_cost_planned",
+        "revenue_est_current_year"
+    )
+} | ConvertTo-Json -Depth 3
+
+$response = Invoke-WebRequest -Uri "http://localhost:5000/screener_projects_dynamic" -Method POST -Body $query -ContentType "application/json"
+$dashboardData = $response.Content | ConvertFrom-Json
+
+# Create executive summary
+$totalProjects = $dashboardData.Count
+$totalRevenue = ($dashboardData | Measure-Object revenue_est_current_year -Sum).Sum
+$totalCost = ($dashboardData | Measure-Object resource_cost_planned -Sum).Sum
+$ragBreakdown = $dashboardData | Group-Object rag_status | ForEach-Object { "$($_.Name): $($_.Count)" }
+
+Write-Host "=== EXECUTIVE DASHBOARD ==="
+Write-Host "Active Projects: $totalProjects"
+Write-Host "Total Revenue Estimate: `$$totalRevenue"
+Write-Host "Total Resource Cost: `$$totalCost"
+Write-Host "RAG Status: $($ragBreakdown -join ', ')"
+Write-Host ""
+
+# Show portfolio breakdown
+Write-Host "Portfolio Breakdown:"
+$dashboardData | Group-Object strategic_portfolio | ForEach-Object {
+    $portfolioRevenue = ($_.Group | Measure-Object revenue_est_current_year -Sum).Sum
+    Write-Host "  $($_.Name): $($_.Count) projects, `$$portfolioRevenue revenue"
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="endpoint" id="complex-examples">
+                        <div class="endpoint-header">
+                            <div class="method-path">
+                                <span class="method post">POST</span>
+                                <span class="path">Complex Scenarios</span>
+                            </div>
+                            <div class="endpoint-summary">Real-world complex query examples</div>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="example">
+                                <h4>PowerShell Example - Resource Skill Matrix</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Build skill matrix for technology resources
+$skills = @("Python", "JavaScript", "React", "PostgreSQL", "Docker", "AWS")
+$skillMatrix = @{}
+
+foreach ($skill in $skills) {
+    $query = @{
+        conditions = @(
+            @{
+                field = "skillset"
+                operator = "contains"
+                value = $skill
+            },
+            @{
+                field = "strategic_portfolio"
+                operator = "eq"
+                value = "Technology"
+            },
+            @{
+                field = "resource_type"
+                operator = "eq"
+                value = "Full-time"
+            }
+        )
+        logical_operator = "AND"
+        fields = @(
+            "resource_name",
+            "resource_role",
+            "skillset",
+            "yearly_capacity"
+        )
+    } | ConvertTo-Json -Depth 3
+    
+    $response = Invoke-WebRequest -Uri "http://localhost:5000/screener_resources_dynamic" -Method POST -Body $query -ContentType "application/json"
+    $resources = $response.Content | ConvertFrom-Json
+    
+    $skillMatrix[$skill] = @{
+        Count = $resources.Count
+        TotalCapacity = ($resources | Measure-Object yearly_capacity -Sum).Sum
+        Resources = $resources.resource_name
+    }
+}
+
+# Display skill matrix
+Write-Host "=== TECHNOLOGY SKILL MATRIX ==="
+foreach ($skill in $skills) {
+    $data = $skillMatrix[$skill]
+    Write-Host "$skill`: $($data.Count) resources, $($data.TotalCapacity) total hours"
+    if ($data.Count -gt 0) {
+        Write-Host "  Resources: $($data.Resources -join ', ')"
+    }
+    Write-Host ""
+}</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="example">
+                                <h4>PowerShell Example - Capacity Planning Analysis</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Comprehensive capacity analysis by quarter
+$quarters = @(
+    @{ Name = "Q1"; Start = "2024-01-01"; End = "2024-03-31" },
+    @{ Name = "Q2"; Start = "2024-04-01"; End = "2024-06-30" },
+    @{ Name = "Q3"; Start = "2024-07-01"; End = "2024-09-30" },
+    @{ Name = "Q4"; Start = "2024-10-01"; End = "2024-12-31" }
+)
+
+Write-Host "=== QUARTERLY CAPACITY ANALYSIS ==="
+
+foreach ($quarter in $quarters) {
+    # Find underutilized resources
+    $underUtilizedQuery = @{
+        conditions = @(
+            @{
+                field = "utilization_percentage"
+                operator = "lt"
+                value = 60
+            }
+        )
+        start_date = $quarter.Start
+        end_date = $quarter.End
+        fields = @(
+            "resource_name",
+            "resource_role",
+            "strategic_portfolio",
+            "available_capacity",
+            "utilization_percentage"
+        )
+    } | ConvertTo-Json -Depth 3
+    
+    $response = Invoke-WebRequest -Uri "http://localhost:5000/screener_resource_capacity_allocation_dynamic" -Method POST -Body $underUtilizedQuery -ContentType "application/json"
+    $underUtilized = $response.Content | ConvertFrom-Json
+    
+    # Find overallocated resources
+    $overAllocatedQuery = @{
+        conditions = @(
+            @{
+                field = "utilization_percentage"
+                operator = "gt"
+                value = 90
+            }
+        )
+        start_date = $quarter.Start
+        end_date = $quarter.End
+        fields = @(
+            "resource_name",
+            "resource_role",
+            "strategic_portfolio",
+            "allocation_hours_planned",
+            "utilization_percentage"
+        )
+    } | ConvertTo-Json -Depth 3
+    
+    $response2 = Invoke-WebRequest -Uri "http://localhost:5000/screener_resource_capacity_allocation_dynamic" -Method POST -Body $overAllocatedQuery -ContentType "application/json"
+    $overAllocated = $response2.Content | ConvertFrom-Json
+    
+    Write-Host "$($quarter.Name) ($($quarter.Start) to $($quarter.End)):"
+    Write-Host "  Under-utilized (<60%): $($underUtilized.Count) resources"
+    Write-Host "  Over-allocated (>90%): $($overAllocated.Count) resources"
+    
+    if ($underUtilized.Count -gt 0) {
+        $totalAvailable = ($underUtilized | Measure-Object available_capacity -Sum).Sum
+        Write-Host "  Available capacity: $totalAvailable hours"
+    }
+    
+    Write-Host ""
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Screener API</h3>
+                    <p>Advanced dynamic query engine for complex filtering and analysis across projects, resources, and capacity data.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Query Features</h4>
+                    <ul>
+                        <li><a href="#comparison-operators">Comparison Operators</a></li>
+                        <li><a href="#text-operators">Text Search</a></li>
+                        <li><a href="#logical-combinations">Logical Combinations</a></li>
+                        <li><a href="#field-selection">Field Selection</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Related APIs</h4>
+                    <ul>
+                        <li><a href="projects-api.html">Projects API</a></li>
+                        <li><a href="resources-api.html">Resources API</a></li>
+                        <li><a href="modules.html">All Modules</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 PMO API Documentation. Powerful dynamic query capabilities.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

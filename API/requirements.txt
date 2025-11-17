@@ -1,0 +1,7 @@
+flask
+flask-cors
+pymysql
+fastapi
+psycopg2
+pandas
+# ...existing dependencies...

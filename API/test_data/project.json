@@ -1,0 +1,14 @@
+{
+  "business_line": "IT",
+  "project_name": "Project One",
+  "project_description": "Description of Project One",
+  "no_of_resources_est": 5,
+  "start_date_est": "2023-01-01",
+  "end_date_est": "2023-12-31",
+  "start_date_actual": "2023-01-01",
+  "end_date_actual": "2023-12-31",
+  "current_status": "Ongoing",
+  "cost": 10000.00,
+  "revenue": 15000.00,
+  "comments": "No comments"
+}

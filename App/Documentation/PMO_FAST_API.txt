@@ -1,0 +1,481 @@
+Collecting workspace informationFiltering to most relevant informationCertainly! Here is an API documentation summary based on your attached files. This lists each main API file, its endpoints (methods), input parameters, output, and the corresponding URLs with query/path parameters.
+
+---
+
+# PMO API Documentation
+
+Certainly! Here’s a tabular summary of your API endpoints, grouped by file, with method, URL, input parameters, and output.
+
+---
+
+### API Endpoint Summary
+
+| File                        | Method | URL / Path & Query Params                                      | Input Params (type)                | Output (type/desc)                |
+|-----------------------------|--------|---------------------------------------------------------------|------------------------------------|-----------------------------------|
+| **main.py**                 | GET    | `/`                                                           | None                               | Welcome message (JSON)            |
+| **managers.py**             | GET    | `/managers`                                                   | None                               | List of managers (JSON)           |
+| **resource_roles.py**       | GET    | `/resource_roles`                                             | None                               | List of roles (JSON)              |
+| **resource_timeoff.py**     | GET    | `/timeoff`                                                    | None                               | List of timeoff (JSON)            |
+|                             | GET    | `/timeoff/{resource_id}`                                      | resource_id (path)                 | List of timeoff (JSON)            |
+|                             | POST   | `/timeoff`                                                    | resource_id, dates, reason (JSON)  | Success message (JSON)            |
+| **resources.py**            | GET    | `/resources`                                                  | None                               | List of resources (JSON)          |
+|                             | GET    | `/resources/{resource_id}`                                    | resource_id (path)                 | Resource (JSON)                   |
+|                             | POST   | `/resources`                                                  | Resource fields (JSON)             | Status                            |
+|                             | GET    | `/resource_capacity`                                          | resource_id, start_date, end_date, interval (query) | Capacity data (JSON)  |
+|                             | GET    | `/resource_capacity_allocation`                               | resource_id, start_date, end_date, interval (query) | Allocation data (JSON) |
+|                             | GET    | `/resource_capacity_allocation_by_project`                    | resource_id, start_date, end_date, interval (query) | Project allocation (JSON) |
+|                             | GET    | `/project_capacity_allocation/{project_id}`                   | project_id (path), interval (query)| Project allocation (JSON)         |
+|                             | GET    | `/resource_capacity_allocation_per_portfolio`                 | strategic_portfolio, product_line, start_date, end_date, interval (query) | Portfolio allocation (JSON) |
+| **resource_allocation.py**  | GET    | `/allocations`                                                | None                               | List of allocations (JSON)        |
+|                             | GET    | `/allocations/project`                                        | project_ids (query)                | List of allocations (JSON)        |
+|                             | GET    | `/allocations/resource/{resource_id}`                         | resource_id (path)                 | List of allocations (JSON)        |
+|                             | GET    | `/allocations/project_summary`                                | project_ids (query)                | Summary (JSON)                    |
+|                             | GET    | `/allocations/resource_role_summary`                          | project_ids (query)                | Summary (JSON)                    |
+|                             | POST   | `/allocate`                                                   | Allocations (JSON)                 | Success message (JSON)            |
+|                             | DELETE | `/allocations/{allocation_id}`                                | allocation_id (path)               | Status                            |
+|                             | GET    | `/allocations/next_allocation_id`                             | None                               | Next allocation id (JSON)         |
+| **resource_allocation_actual.py** | POST   | `/allocations_actual/import_timesheet`                  | file (UploadFile), input_file_name, project_name (form) | Success message (JSON) |
+|                             | GET    | `/allocations_actual`                                         | resource_id, project_id, strategic_portfolio, product_line, manager_email, ts_start_date, ts_end_date (query) | List (JSON) |
+|                             | GET    | `/allocation_actual_by_interval`                              | resource_id, start_date, end_date, interval (query) | Grouped allocation (JSON) |
+|                             | POST   | `/timesheet_entry_by_interval`                                | project_id, resource_id, ts_entry_date_start, ts_entry_date_end (form) | Status message (JSON) |
+| **projects.py**             | GET    | `/projects`                                                   | None                               | List of projects (JSON)           |
+|                             | GET    | `/projects/{project_id}`                                      | project_id (path)                  | Project (JSON)                    |
+|                             | POST   | `/projects`                                                   | Project fields (JSON)              | Success message (JSON)            |
+|                             | GET    | `/projects/timelines/{project_id}`                            | project_id (path)                  | List of timelines (JSON)          |
+|                             | POST   | `/projects/timelines/{project_id}`                            | project_id (path), timeline fields (JSON) | Status                    |
+|                             | POST   | `/projects/timelines/reorder/{project_id}`                    | project_id (path), timelines (JSON)| Status                            |
+|                             | DELETE | `/projects/timelines/{project_id}`                            | project_id (path), milestone (JSON)| Status                            |
+|                             | GET    | `/projects_filter`                                            | strategic_portfolio, product_line, technology_project (query) | List (JSON)           |
+| **excel_to_db.py**          | POST   | `/excel_to_db`                                                | table_name (form), file (UploadFile) | Success message (JSON)          |
+
+---
+
+**Legend:**  
+- **(path):** Path parameter  
+- **(query):** Query string parameter  
+- **(form):** Form-data parameter  
+- **(JSON):** JSON body parameter or response  
+- **(UploadFile):** File upload
+
+Let me know if you want a more detailed breakdown for any file or endpoint!
+
+
+## 1. main.py
+**Purpose:** FastAPI app setup and router inclusion.
+
+**Root Endpoint:**
+- **GET /**  
+  - **Description:** Returns a welcome message.
+  - **Response:**  
+    ```json
+    {"message": "Welcome to the PMO API"}
+    ```
+
+---
+
+## 2. managers.py
+**Router Prefix:** `/managers`
+
+### Endpoints
+
+- **GET /managers**  
+  - **Description:** Retrieve all managers.
+  - **Input:** None
+  - **Output:**  
+    ```json
+    [
+      {
+        "manager_name": "...",
+        "manager_email": "...",
+        "strategic_portfolio": "..."
+      },
+      ...
+    ]
+    ```
+
+---
+
+## 3. resource_roles.py
+**Router Prefix:** `/resource_roles`
+
+### Endpoints
+
+- **GET /resource_roles**  
+  - **Description:** Retrieve all resource roles.
+  - **Input:** None
+  - **Output:**  
+    ```json
+    [
+      {
+        ...role fields...
+      },
+      ...
+    ]
+    ```
+
+---
+
+## 4. resource_timeoff.py
+**Router Prefix:** `/timeoff`
+
+### Endpoints
+
+- **GET /timeoff**  
+  - **Description:** Retrieve time off for all resources.
+  - **Input:** None
+  - **Output:**  
+    ```json
+    [
+      {
+        "resource_id": ...,
+        "resource_name": "...",
+        "timeoff_start_date": "YYYY-MM-DD",
+        "timeoff_end_date": "YYYY-MM-DD",
+        "reason": "..."
+      },
+      ...
+    ]
+    ```
+
+- **GET /timeoff/{resource_id}**  
+  - **Description:** Retrieve time off for a specific resource.
+  - **Input:**  
+    - `resource_id` (path)
+  - **Output:** Same as above, filtered.
+
+- **POST /timeoff**  
+  - **Description:** Add time off for a resource.
+  - **Input:**  
+    ```json
+    {
+      "resource_id": ...,
+      "timeoff_start_date": "YYYY-MM-DD",
+      "timeoff_end_date": "YYYY-MM-DD",
+      "reason": "..."
+    }
+    ```
+  - **Output:**  
+    ```json
+    {"message": "Time off added successfully"}
+    ```
+
+---
+
+## 5. resources.py
+**Router Prefix:** `/resources`
+
+### Endpoints
+
+- **GET /resources**  
+  - **Description:** Retrieve all resources.
+  - **Output:**  
+    ```json
+    [
+      {
+        "resource_id": ...,
+        "resource_name": "...",
+        ...
+      },
+      ...
+    ]
+    ```
+
+- **GET /resources/{resource_id}**  
+  - **Description:** Retrieve a resource by ID.
+  - **Input:**  
+    - `resource_id` (path)
+  - **Output:** Resource object.
+
+- **POST /resources**  
+  - **Description:** Add a new resource.
+  - **Input:** JSON body with resource fields.
+  - **Output:** None (should return status).
+
+- **GET /resource_capacity**  
+  - **Description:** Retrieve resource capacity for a given period and interval.
+  - **Query Parameters:**  
+    - `resource_id` (required)
+    - `start_date` (default: current year-01-01)
+    - `end_date` (default: current year-12-31)
+    - `interval` (default: Weekly)
+  - **Output:**  
+    ```json
+    [
+      {
+        ...capacity data...
+      },
+      ...
+    ]
+    ```
+
+- **GET /resource_capacity_allocation**  
+  - **Description:** Retrieve resource capacity and allocation (planned/actual) for a resource.
+  - **Query Parameters:**  
+    - `resource_id` (required)
+    - `start_date`, `end_date`, `interval`
+  - **Output:**  
+    ```json
+    [
+      {
+        ...allocation data...
+      },
+      ...
+    ]
+    ```
+
+- **GET /resource_capacity_allocation_by_project**  
+  - **Description:** Resource capacity/allocation by project.
+  - **Query Parameters:**  
+    - `resource_id`, `start_date`, `end_date`, `interval`
+  - **Output:**  
+    ```json
+    [
+      {
+        ...project allocation data...
+      },
+      ...
+    ]
+    ```
+
+- **GET /project_capacity_allocation/{project_id}**  
+  - **Description:** Capacity allocation for a specific project.
+  - **Path Parameter:** `project_id`
+  - **Query Parameters:** `interval`
+  - **Output:**  
+    ```json
+    {
+      "project_id": ...,
+      "intervals": [...],
+      ...
+    }
+    ```
+
+- **GET /resource_capacity_allocation_per_portfolio**  
+  - **Description:** Capacity/allocation for all resources filtered by portfolio/product line.
+  - **Query Parameters:**  
+    - `strategic_portfolio`, `product_line`, `start_date`, `end_date`, `interval`
+  - **Output:**  
+    ```json
+    {
+      "strategic_portfolio": "...",
+      "product_line": "...",
+      "intervals": [...],
+      ...
+    }
+    ```
+
+---
+
+## 6. resource_allocation.py
+**Router Prefix:** `/allocations`
+
+### Endpoints
+
+- **GET /allocations**  
+  - **Description:** Retrieve all projects with resource allocations.
+  - **Output:**  
+    ```json
+    [
+      {
+        ...allocation fields...
+      },
+      ...
+    ]
+    ```
+
+- **GET /allocations/project**  
+  - **Description:** Retrieve allocations by project IDs.
+  - **Query Parameter:**  
+    - `project_ids` (list of int)
+  - **Output:** List of allocations.
+
+- **GET /allocations/resource/{resource_id}**  
+  - **Description:** Retrieve allocations by resource ID.
+  - **Path Parameter:** `resource_id`
+  - **Output:** List of allocations.
+
+- **GET /allocations/project_summary**  
+  - **Description:** Project summaries for one or more projects.
+  - **Query Parameter:** `project_ids` (list of int)
+  - **Output:** Summary dict.
+
+- **GET /allocations/resource_role_summary**  
+  - **Description:** Resource role summaries for projects.
+  - **Query Parameter:** `project_ids` (list of int)
+  - **Output:** Summary dict.
+
+- **POST /allocate**  
+  - **Description:** Insert or update resource allocations.
+  - **Input:** JSON body (list of allocations)
+  - **Output:**  
+    ```json
+    {"message": "Resource allocation upserted successfully"}
+    ```
+
+- **DELETE /allocations/{allocation_id}**  
+  - **Description:** Delete allocation by ID.
+  - **Path Parameter:** `allocation_id`
+  - **Output:** None (should return status).
+
+- **GET /allocations/next_allocation_id**  
+  - **Description:** Get next allocation ID.
+  - **Output:**  
+    ```json
+    {"next_allocation_id": ...}
+    ```
+
+---
+
+## 7. resource_allocation_actual.py
+**Router Prefix:** `/allocations_actual`
+
+### Endpoints
+
+- **POST /allocations_actual/import_timesheet**  
+  - **Description:** Import timesheet data from an Excel file.
+  - **Form Data:**  
+    - `file` (UploadFile, required)
+    - `input_file_name` (optional)
+    - `project_name` (optional)
+  - **Output:**  
+    ```json
+    {"message": "Timesheet data imported successfully"}
+    ```
+
+- **GET /allocations_actual**  
+  - **Description:** Fetch allocations_actual with optional filters.
+  - **Query Parameters:**  
+    - `resource_id`, `project_id`, `strategic_portfolio`, `product_line`, `manager_email`, `ts_start_date`, `ts_end_date`
+  - **Output:**  
+    ```json
+    [
+      {
+        ...timesheet entry fields...
+      },
+      ...
+    ]
+    ```
+
+- **GET /allocation_actual_by_interval**  
+  - **Description:** Fetch actual allocation data grouped by interval.
+  - **Query Parameters:**  
+    - `resource_id`, `start_date`, `end_date`, `interval`
+  - **Output:** Grouped allocation data.
+
+- **POST /timesheet_entry_by_interval**  
+  - **Description:** Insert/update weekly/monthly timesheet hours.
+  - **Form Data:**  
+    - `project_id`, `resource_id`, `ts_entry_date_start`, `ts_entry_date_end`
+  - **Output:** Status message.
+
+---
+
+## 8. projects.py
+**Router Prefix:** `/projects`
+
+### Endpoints
+
+- **GET /projects**  
+  - **Description:** Retrieve all projects with summaries and role summaries.
+  - **Output:**  
+    ```json
+    [
+      {
+        ...project fields...,
+        "project_resource_hours_planned": ...,
+        "project_resource_cost_planned": ...,
+        "project_resource_hours_actual": ...,
+        "project_resource_cost_actual": ...,
+        "resource_role_summary": {...}
+      },
+      ...
+    ]
+    ```
+
+- **GET /projects/{project_id}**  
+  - **Description:** Retrieve a project by ID with summaries.
+  - **Path Parameter:** `project_id`
+  - **Output:** Project object.
+
+- **POST /projects**  
+  - **Description:** Add or update a project.
+  - **Input:** JSON body with project fields.
+  - **Output:**  
+    ```json
+    {"message": "Project added or updated successfully"}
+    ```
+
+- **GET /projects/timelines/{project_id}**  
+  - **Description:** Get project timelines.
+  - **Path Parameter:** `project_id`
+  - **Output:** List of timeline entries.
+
+- **POST /projects/timelines/{project_id}**  
+  - **Description:** Add or update a project timeline.
+  - **Path Parameter:** `project_id`
+  - **Input:** JSON body with timeline fields.
+  - **Output:** None (should return status).
+
+- **POST /projects/timelines/reorder/{project_id}**  
+  - **Description:** Reorder project timelines.
+  - **Path Parameter:** `project_id`
+  - **Input:** JSON body (list of timelines).
+  - **Output:** None (should return status).
+
+- **DELETE /projects/timelines/{project_id}**  
+  - **Description:** Delete a project timeline.
+  - **Path Parameter:** `project_id`
+  - **Input:** JSON body with `milestone`.
+  - **Output:** None (should return status).
+
+- **GET /projects_filter**  
+  - **Description:** Filter projects by portfolio, product line, or technology project.
+  - **Query Parameters:**  
+    - `strategic_portfolio`, `product_line`, `technology_project`
+  - **Output:** List of filtered projects.
+
+---
+
+## 9. excel_to_db.py
+**Router Prefix:** `/excel_to_db`
+
+### Endpoints
+
+- **POST /excel_to_db**  
+  - **Description:** Upload Excel file and upsert data into a specified table.
+  - **Form Data:**  
+    - `table_name` (str, required)
+    - `file` (UploadFile, required)
+  - **Output:**  
+    ```json
+    {"message": "Data imported successfully into {table_name}"}
+    ```
+
+---
+
+## 10. db_utils_pg.py
+**Purpose:** PostgreSQL connection pool utilities.
+
+- **Functions:**  
+  - `get_pg_connection()`: Get a connection from the pool.
+  - `release_pg_connection(conn)`: Release a connection back to the pool.
+  - `close_connection_pool()`: Close all connections.
+
+---
+
+## 11. db_utils_mysql.py
+**Purpose:** MySQL connection utility (legacy).
+
+- **Functions:**  
+  - `get_db_connection()`: Get a MySQL connection.
+
+---
+
+**Note:**  
+- All endpoints returning JSON use FastAPI's `JSONResponse`.
+- For endpoints with `Form` or `UploadFile`, use `multipart/form-data` in your requests.
+- Query parameters are passed as URL query strings, e.g., `/resource_capacity?resource_id=1&interval=Weekly`.
+
+---
+
+This documentation can be extended with example requests/responses and more details as needed. Let me know if you want a more detailed breakdown for any specific endpoint or file!

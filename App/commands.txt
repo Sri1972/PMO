@@ -1,0 +1,64 @@
+# PMO App - Commands Reference
+
+## Commands to Get PMO App Running
+
+### 1. Update Browserslist Database
+npx browserslist@latest --update-db
+# This resolved the "browsers data is 6 months old" warning
+
+### 2. Clean npm Cache
+npm cache clean --force
+# Cleared any cached files that might cause issues
+
+### 3. Remove node_modules and Reinstall Dependencies
+Remove-Item -Recurse -Force node_modules -ErrorAction SilentlyContinue
+npm install
+# Fresh installation of all dependencies
+
+### 4. Build the Production Version
+npm run build
+# Created an optimized production build of your React app
+
+### 5. Install Serve Package Globally
+npm install -g serve
+# Installed the static file server to serve the built app
+
+### 6. Serve the Production Build
+serve -s build
+# Started serving the app at http://localhost:3000
+
+## Quick Reference for Future Use
+
+### To Start Your PMO App (Production Mode):
+cd "D:\PMO\App"
+npm run build
+serve -s build
+
+### To Update and Restart After Code Changes:
+# Stop the current server (Ctrl+C)
+npm run build
+serve -s build
+
+### If You Want to Try Development Mode Again:
+npm start
+# (Though this was hanging due to React 19 compatibility issues)
+
+## Notes:
+- The production build approach bypassed the development server hanging issue
+- Your app loads at http://localhost:3000 when using `serve -s build`
+- The build process showed some warnings but completed successfully
+- Bundle size is larger than recommended - consider code splitting for optimization
+
+## Alternative Development Server (if needed):
+# If npm start continues to hang, you can also try:
+$env:GENERATE_SOURCEMAP="false"; npm start
+
+## Troubleshooting Commands:
+# Check if port 3000 is in use:
+netstat -ano | findstr :3000
+
+# Kill node processes if needed:
+taskkill /f /im node.exe
+
+# Check for running node processes:
+Get-Process -Name "node" -ErrorAction SilentlyContinue

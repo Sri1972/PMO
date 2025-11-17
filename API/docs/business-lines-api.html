@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Lines API - PMO API Documentation</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-project-diagram"></i>
+                <span>PMO API</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="screener-api.html" class="nav-link">Screener API</a></li>
+                <li><a href="projects-api.html" class="nav-link">Projects API</a></li>
+                <li><a href="resources-api.html" class="nav-link">Resources API</a></li>
+                <li><a href="allocations-api.html" class="nav-link">Allocations API</a></li>
+                <li><a href="managers-api.html" class="nav-link">Managers API</a></li>
+                <li><a href="business-lines-api.html" class="nav-link active">Business Lines API</a></li>
+                <li><a href="modules.html" class="nav-link">All Modules</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <i class="fas fa-sitemap"></i>
+                        Business Lines API
+                    </h1>
+                    <p class="hero-subtitle">
+                        Organizational structure management with strategic portfolios and product line hierarchies for business alignment.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">Endpoints</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">2</span>
+                            <span class="stat-label">Hierarchy Levels</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">Flexible</span>
+                            <span class="stat-label">Filtering</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- API Endpoints -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Business Lines Endpoints</h2>
+                    <p>Manage organizational structure and business hierarchies</p>
+                </div>
+
+                <!-- Get All Business Lines -->
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/business_lines</span>
+                        <span class="description">Get all business lines with portfolio and product line mapping</span>
+                    </div>
+                    <div class="endpoint-content">
+                        <div class="endpoint-details">
+                            <h4>Description</h4>
+                            <p>Retrieves the complete organizational structure showing the relationship between strategic portfolios and product lines. Results are ordered by strategic portfolio.</p>
+                            
+                            <h4>Response Fields</h4>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>strategic_portfolio</td>
+                                        <td>string</td>
+                                        <td>High-level strategic business portfolio</td>
+                                    </tr>
+                                    <tr>
+                                        <td>product_line</td>
+                                        <td>string</td>
+                                        <td>Specific product line within the portfolio</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Response Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-json">[
+  {
+    "strategic_portfolio": "Auto Insights",
+    "product_line": "Auto Claims"
+  },
+  {
+    "strategic_portfolio": "Auto Insights",
+    "product_line": "Auto Underwriting"
+  },
+  {
+    "strategic_portfolio": "Market & Sell",
+    "product_line": "Commercial"
+  },
+  {
+    "strategic_portfolio": "Market & Sell",
+    "product_line": "Personal Lines"
+  },
+  {
+    "strategic_portfolio": "Commercial Operations",
+    "product_line": "Small Business"
+  }
+]</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>PowerShell Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-powershell">Invoke-WebRequest -Uri "http://localhost:5000/business_lines" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Get Strategic Portfolios -->
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/strategic_portfolios</span>
+                        <span class="description">Get all unique strategic portfolios</span>
+                    </div>
+                    <div class="endpoint-content">
+                        <div class="endpoint-details">
+                            <h4>Description</h4>
+                            <p>Returns a distinct list of all strategic portfolios in the organization, useful for dropdown lists and filtering operations.</p>
+                            
+                            <h4>Response Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-json">[
+  {
+    "strategic_portfolio": "Auto Insights"
+  },
+  {
+    "strategic_portfolio": "Commercial Operations"
+  },
+  {
+    "strategic_portfolio": "Market & Sell"
+  }
+]</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>PowerShell Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-powershell">Invoke-WebRequest -Uri "http://localhost:5000/strategic_portfolios" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Get Product Lines by Portfolio -->
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/product_lines/{strategic_portfolio}</span>
+                        <span class="description">Get product lines for a specific strategic portfolio</span>
+                    </div>
+                    <div class="endpoint-content">
+                        <div class="endpoint-details">
+                            <h4>Description</h4>
+                            <p>Retrieves all product lines that belong to a specific strategic portfolio, enabling hierarchical navigation and filtering.</p>
+                            
+                            <h4>Path Parameters</h4>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Required</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>strategic_portfolio</td>
+                                        <td>string</td>
+                                        <td>Strategic portfolio name (URL encoded)</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Response Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-json">[
+  {
+    "strategic_portfolio": "Market & Sell",
+    "product_line": "Commercial"
+  },
+  {
+    "strategic_portfolio": "Market & Sell",
+    "product_line": "Personal Lines"
+  }
+]</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>PowerShell Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># URL encode the portfolio name
+$portfolio = [System.Web.HttpUtility]::UrlEncode("Market & Sell")
+Invoke-WebRequest -Uri "http://localhost:5000/product_lines/$portfolio" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>cURL Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-bash">curl -X GET "http://localhost:5000/product_lines/Market%20%26%20Sell" \
+  -H "Content-Type: application/json"</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Use Cases Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Common Use Cases</h2>
+                    <p>Real-world applications for business line management</p>
+                </div>
+
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <div class="example-header">
+                            <i class="fas fa-chart-org"></i>
+                            <h3>Organizational Mapping</h3>
+                        </div>
+                        <div class="example-content">
+                            <p>Build organizational structure visualization</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Get complete business structure
+$businessLines = (Invoke-WebRequest -Uri "http://localhost:5000/business_lines" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}).Content | ConvertFrom-Json
+
+# Group by strategic portfolio
+$orgStructure = $businessLines | Group-Object strategic_portfolio
+
+# Display hierarchy
+foreach ($portfolio in $orgStructure) {
+    Write-Host "📁 $($portfolio.Name)" -ForegroundColor Yellow
+    foreach ($line in $portfolio.Group) {
+        Write-Host "  └── $($line.product_line)" -ForegroundColor White
+    }
+}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-header">
+                            <i class="fas fa-filter"></i>
+                            <h3>Dynamic Filtering</h3>
+                        </div>
+                        <div class="example-content">
+                            <p>Create cascading dropdown interfaces</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Step 1: Get all portfolios for dropdown
+$portfolios = (Invoke-WebRequest -Uri "http://localhost:5000/strategic_portfolios" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}).Content | ConvertFrom-Json
+
+# Step 2: User selects "Market & Sell"
+$selectedPortfolio = "Market & Sell"
+$encodedPortfolio = [System.Web.HttpUtility]::UrlEncode($selectedPortfolio)
+
+# Step 3: Get product lines for selected portfolio
+$productLines = (Invoke-WebRequest -Uri "http://localhost:5000/product_lines/$encodedPortfolio" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}).Content | ConvertFrom-Json</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-header">
+                            <i class="fas fa-search"></i>
+                            <h3>Business Analysis</h3>
+                        </div>
+                        <div class="example-content">
+                            <p>Analyze portfolio distribution and coverage</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Analyze business line distribution
+$businessLines = (Invoke-WebRequest -Uri "http://localhost:5000/business_lines" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}).Content | ConvertFrom-Json
+
+# Count product lines per portfolio
+$portfolioStats = $businessLines | Group-Object strategic_portfolio | 
+    Select-Object Name, Count | 
+    Sort-Object Count -Descending
+
+Write-Host "Portfolio Distribution:" -ForegroundColor Green
+$portfolioStats | Format-Table -AutoSize</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Integration Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Integration with Other APIs</h2>
+                    <p>How Business Lines API connects with the broader PMO ecosystem</p>
+                </div>
+
+                <div class="integration-grid">
+                    <div class="integration-card">
+                        <div class="integration-header">
+                            <i class="fas fa-project-diagram"></i>
+                            <h3>Projects API</h3>
+                        </div>
+                        <div class="integration-content">
+                            <p>Projects are aligned with business lines - use this for project categorization and filtering.</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Get business lines for project filtering
+$portfolios = (Invoke-WebRequest -Uri "http://localhost:5000/strategic_portfolios").Content | ConvertFrom-Json
+
+# Filter projects by business alignment
+$projects = (Invoke-WebRequest -Uri "http://localhost:5000/projects").Content | ConvertFrom-Json
+$marketSellProjects = $projects | Where-Object { $_.strategic_portfolio -eq "Market & Sell" }</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="integration-card">
+                        <div class="integration-header">
+                            <i class="fas fa-users"></i>
+                            <h3>Resources & Managers</h3>
+                        </div>
+                        <div class="integration-content">
+                            <p>Resources and managers are assigned to strategic portfolios - create organizational views.</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Cross-reference resources with business structure
+$businessLines = (Invoke-WebRequest -Uri "http://localhost:5000/business_lines").Content | ConvertFrom-Json
+$resources = (Invoke-WebRequest -Uri "http://localhost:5000/resources").Content | ConvertFrom-Json
+$managers = (Invoke-WebRequest -Uri "http://localhost:5000/managers").Content | ConvertFrom-Json
+
+# Build organizational chart
+$orgChart = $businessLines | Group-Object strategic_portfolio | ForEach-Object {
+    @{
+        Portfolio = $_.Name
+        ProductLines = $_.Group.product_line
+        Resources = ($resources | Where-Object { $_.strategic_portfolio -eq $_.Name }).Count
+        Managers = ($managers | Where-Object { $_.strategic_portfolio -eq $_.Name }).manager_name
+    }
+}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="integration-card">
+                        <div class="integration-header">
+                            <i class="fas fa-filter"></i>
+                            <h3>Screener API</h3>
+                        </div>
+                        <div class="integration-content">
+                            <p>Use business line data to build dynamic filtering criteria for advanced queries.</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Build dynamic screener filters
+$portfolios = (Invoke-WebRequest -Uri "http://localhost:5000/strategic_portfolios").Content | ConvertFrom-Json
+
+# Create filter for specific portfolio projects
+$filterBody = @{
+    filters = @(
+        @{
+            column = "strategic_portfolio"
+            operator = "="
+            value = "Market & Sell"
+        }
+    )
+    logical_operator = "AND"
+    fields = @("project_id", "project_name", "strategic_portfolio", "product_line")
+} | ConvertTo-Json
+
+Invoke-WebRequest -Uri "http://localhost:5000/screener_projects" -Method POST -Headers @{"Content-Type"="application/json"} -Body $filterBody</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Best Practices -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Best Practices</h2>
+                    <p>Tips for effective business line management</p>
+                </div>
+
+                <div class="best-practices-grid">
+                    <div class="practice-card">
+                        <div class="practice-header">
+                            <i class="fas fa-link"></i>
+                            <h3>URL Encoding</h3>
+                        </div>
+                        <div class="practice-content">
+                            <p>Always URL encode strategic portfolio names when using them in path parameters, especially those containing special characters like "&".</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Correct way to handle special characters
+$portfolio = "Market & Sell"
+$encoded = [System.Web.HttpUtility]::UrlEncode($portfolio)
+# Results in: "Market%20%26%20Sell"</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="practice-card">
+                        <div class="practice-header">
+                            <i class="fas fa-layer-group"></i>
+                            <h3>Hierarchical Navigation</h3>
+                        </div>
+                        <div class="practice-content">
+                            <p>Use the three-tier approach: start with strategic portfolios, then drill down to specific product lines for optimal user experience.</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-card">
+                        <div class="practice-header">
+                            <i class="fas fa-database"></i>
+                            <h3>Caching Strategy</h3>
+                        </div>
+                        <div class="practice-content">
+                            <p>Business line data changes infrequently - consider caching responses for better performance in client applications.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h4>Business Lines API</h4>
+                        <p>Organizational structure management with strategic portfolios and product line hierarchies for business alignment.</p>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="projects-api.html">Projects API</a></li>
+                            <li><a href="resources-api.html">Resources API</a></li>
+                            <li><a href="managers-api.html">Managers API</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Features</h4>
+                        <ul>
+                            <li>Strategic Portfolios</li>
+                            <li>Product Line Mapping</li>
+                            <li>Hierarchical Structure</li>
+                            <li>Dynamic Filtering</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 PMO API Documentation. Built with ❤️ for developers.</p>
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

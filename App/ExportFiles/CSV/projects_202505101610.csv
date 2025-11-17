@@ -1,0 +1,18 @@
+"project_id","project_name","strategic_portfolio","product_line","project_type","project_description","vitality","strategic","aim","revenue_est_growth_pa","revenue_est_current_year","revenue_est_current_year_plus_1","revenue_est_current_year_plus_2","revenue_est_current_year_plus_3","start_date_est","end_date_est","start_date_actual","end_date_actual","current_status","rag_status","comments","added_by","added_date","updated_by","updated_date","timesheet_project_name"
+2,Blade Runner 3.0,Market & Sell,PAS,Blade Runner,Refactoring from VMC to Cloud Native,NO ,YES,NO ,,,,,,2025-01-01,2025-12-31,,,"",,,,,,,
+3,Blade Runner 3.0,Market & Sell,Commercial,Blade Runner,Refactoring from VMC to Cloud Native,NO ,YES,NO ,,,,,,2025-01-01,2025-12-31,,,"",,,,,,,
+4,Blade Runner 3.0,Market & Sell,NA Industry Performance,Blade Runner,Refactoring from VMC to Cloud Native,NO ,YES,NO ,,,,,,2025-01-01,2025-12-31,,,"",,,,,,,
+5,Blade Runner 3.0,Vehicles In Use,Recall,Blade Runner,Refactoring from VMC to Cloud Native,NO ,YES,NO ,,,,,,2025-01-01,2025-12-31,,,"",,,,,,,
+6,Blade Runner 3.0,Vehicles In Use,VIN Solutions,Blade Runner,Refactoring from VMC to Cloud Native,NO ,YES,NO ,,,,,,2025-01-01,2025-12-31,,,"",,,,,,,
+7,Concord,Auto Insights,OV360,Concord,Concord Standards,NO ,NO ,NO ,,,,,,2025-01-01,2025-12-31,,,"",,,,,,,
+8,Concord,Market & Sell,PAS,Concord,Concord Standards,NO ,NO ,NO ,,,,,,2025-01-01,2025-12-31,,,"",,,,,,,
+9,Concord,Market & Sell,Commercial,Concord,Concord Standards,NO ,NO ,NO ,,,,,,2025-01-01,2025-12-31,,,"",,,,,,,
+10,Concord,Market & Sell,NA Industry Performance,Concord,Concord Standards,NO ,NO ,NO ,,,,,,2025-01-01,2025-12-31,,,"",,,,,,,
+11,Concord,Vehicles In Use,Recall,Concord,Concord Standards,NO ,NO ,NO ,,,,,,2025-01-01,2025-12-31,,,"",,,,,,,
+12,Concord,Vehicles In Use,VIN Solutions,Concord,Concord Standards,NO ,NO ,NO ,,,,,,2025-01-01,2025-12-31,,,"",,,,,,,
+13,Fleet Intelligence,Market & Sell,PAS,New Product,New platform to replace TipNet,NO ,YES,NO ,,,,,,2025-01-01,2025-07-31,,,"",,,,,,,
+14,Cloud 2.0,Vehicles In Use,VIN Solutions,BladeRunner,This is the modernization of VIS,NO ,YES,YES,,,,,,2025-01-01,2025-07-31,,,"",,,,,,,
+18,Time To Insight,Auto Insights,Cross-Product,NewProduct,TTI,YES,YES,YES,,,,,,2025-05-01,2025-12-31,,,"",,,,,,,
+27,Test,Auto Insights,Cross-Product,NewProduct,Test. Updated. Updated again.,TBD,TBD,TBD,,,,,,2025-03-11,2025-04-30,,,,,,,,,,
+38,Fast 1.2.1 Forecast Export/Import,Plan & Build,Vehicle Powertrain,Enhance,"2025 Fast Capex",NO ,NO ,YES,,,,,,2024-12-01,2025-05-15,2024-12-01,2025-05-15,Work In Progress,Green,"",,,,,Fast 1.2.1 Forecast Export/Import
+1,Concept Memo,Market & Sell,NA Industry Performance,Efficiency,Concept Memo - Custom Segmentation,NO ,YES,YES,,,,,,2025-07-01,2025-12-31,,,Not Started,N/A,"",,,,,

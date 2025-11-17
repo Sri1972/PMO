@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Managers API - PMO API Documentation</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-project-diagram"></i>
+                <span>PMO API</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="screener-api.html" class="nav-link">Screener API</a></li>
+                <li><a href="projects-api.html" class="nav-link">Projects API</a></li>
+                <li><a href="resources-api.html" class="nav-link">Resources API</a></li>
+                <li><a href="allocations-api.html" class="nav-link">Allocations API</a></li>
+                <li><a href="managers-api.html" class="nav-link active">Managers API</a></li>
+                <li><a href="modules.html" class="nav-link">All Modules</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <i class="fas fa-user-tie"></i>
+                        Managers API
+                    </h1>
+                    <p class="hero-subtitle">
+                        Simple and efficient manager directory management for organizational hierarchy and contact information.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">1</span>
+                            <span class="stat-label">Endpoint</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">Data Fields</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">Simple</span>
+                            <span class="stat-label">Design</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- API Endpoints -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Manager Endpoints</h2>
+                    <p>Access manager directory and contact information</p>
+                </div>
+
+                <!-- Get All Managers -->
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/managers</span>
+                        <span class="description">Get all managers with contact information and portfolio assignments</span>
+                    </div>
+                    <div class="endpoint-content">
+                        <div class="endpoint-details">
+                            <h4>Description</h4>
+                            <p>Retrieves a complete list of all managers including their contact information and strategic portfolio assignments. Results are ordered alphabetically by manager name.</p>
+                            
+                            <h4>Response Fields</h4>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>manager_name</td>
+                                        <td>string</td>
+                                        <td>Full name of the manager</td>
+                                    </tr>
+                                    <tr>
+                                        <td>manager_email</td>
+                                        <td>string</td>
+                                        <td>Manager's email address</td>
+                                    </tr>
+                                    <tr>
+                                        <td>strategic_portfolio</td>
+                                        <td>string</td>
+                                        <td>Strategic portfolio managed by this manager</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Response Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-json">[
+  {
+    "manager_name": "Alice Johnson",
+    "manager_email": "alice.johnson@company.com",
+    "strategic_portfolio": "Market & Sell"
+  },
+  {
+    "manager_name": "Bob Smith",
+    "manager_email": "bob.smith@company.com",
+    "strategic_portfolio": "Auto Insights"
+  },
+  {
+    "manager_name": "Carol Davis",
+    "manager_email": "carol.davis@company.com",
+    "strategic_portfolio": "Commercial Operations"
+  }
+]</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>PowerShell Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-powershell">Invoke-WebRequest -Uri "http://localhost:5000/managers" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>cURL Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-bash">curl -X GET "http://localhost:5000/managers" \
+  -H "Content-Type: application/json"</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Use Cases Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Common Use Cases</h2>
+                    <p>Practical applications for the Managers API</p>
+                </div>
+
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <div class="example-header">
+                            <i class="fas fa-address-book"></i>
+                            <h3>Manager Directory</h3>
+                        </div>
+                        <div class="example-content">
+                            <p>Build a manager contact directory for organizational reference</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Get all managers for directory
+$managers = (Invoke-WebRequest -Uri "http://localhost:5000/managers" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}).Content | ConvertFrom-Json
+
+# Display formatted directory
+$managers | Format-Table manager_name, manager_email, strategic_portfolio</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-header">
+                            <i class="fas fa-filter"></i>
+                            <h3>Portfolio Management</h3>
+                        </div>
+                        <div class="example-content">
+                            <p>Find managers responsible for specific portfolios</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Get managers and filter by portfolio
+$managers = (Invoke-WebRequest -Uri "http://localhost:5000/managers" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}).Content | ConvertFrom-Json
+
+# Find Market & Sell managers
+$marketSellManagers = $managers | Where-Object { $_.strategic_portfolio -eq "Market & Sell" }</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-header">
+                            <i class="fas fa-envelope"></i>
+                            <h3>Contact Integration</h3>
+                        </div>
+                        <div class="example-content">
+                            <p>Extract email addresses for communication workflows</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Get all manager emails
+$managers = (Invoke-WebRequest -Uri "http://localhost:5000/managers" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}).Content | ConvertFrom-Json
+
+# Extract email list
+$managerEmails = $managers | Select-Object -ExpandProperty manager_email
+$emailList = $managerEmails -join ";"</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Integration Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Integration with Other APIs</h2>
+                    <p>How the Managers API works with other PMO endpoints</p>
+                </div>
+
+                <div class="integration-grid">
+                    <div class="integration-card">
+                        <div class="integration-header">
+                            <i class="fas fa-users"></i>
+                            <h3>Resources API</h3>
+                        </div>
+                        <div class="integration-content">
+                            <p>Resources include manager information - use this API to get the complete manager directory.</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Cross-reference resource managers
+$resources = (Invoke-WebRequest -Uri "http://localhost:5000/resources").Content | ConvertFrom-Json
+$managers = (Invoke-WebRequest -Uri "http://localhost:5000/managers").Content | ConvertFrom-Json
+
+# Find manager details for a resource
+$resourceManager = $managers | Where-Object { $_.manager_email -eq $resources[0].manager_email }</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="integration-card">
+                        <div class="integration-header">
+                            <i class="fas fa-sitemap"></i>
+                            <h3>Business Lines API</h3>
+                        </div>
+                        <div class="integration-content">
+                            <p>Combine manager data with business line structure for organizational mapping.</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Map managers to business lines
+$managers = (Invoke-WebRequest -Uri "http://localhost:5000/managers").Content | ConvertFrom-Json
+$businessLines = (Invoke-WebRequest -Uri "http://localhost:5000/business_lines").Content | ConvertFrom-Json
+
+# Group by strategic portfolio
+$organizationMap = $managers | Group-Object strategic_portfolio</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h4>Managers API</h4>
+                        <p>Simple and efficient manager directory management for organizational hierarchy and contact information.</p>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="resources-api.html">Resources API</a></li>
+                            <li><a href="business-lines-api.html">Business Lines API</a></li>
+                            <li><a href="allocations-api.html">Allocations API</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Features</h4>
+                        <ul>
+                            <li>Manager Directory</li>
+                            <li>Contact Information</li>
+                            <li>Portfolio Assignments</li>
+                            <li>Alphabetical Sorting</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 PMO API Documentation. Built with ❤️ for developers.</p>
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

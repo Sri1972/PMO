@@ -1,0 +1,28 @@
+
+### This will completely replace the repository content
+cd "D:\PMO"
+git init
+git config --global --add safe.directory D:/PMO
+git config user.name "Sri1972"
+git config user.email "srikanthcs@hotmail.com"
+git remote add origin https://github.com/Sri1972/PMO.git
+git branch -M main
+git add API/ App/
+git commit -m "Initial commit: PMO project with API backend and React frontend"
+git push origin main --force
+
+## Option 3: GitHub Web Interface Method
+
+1. Go to https://github.com/Sri1972/PMO
+2. Click on "Settings" tab
+3. Scroll down to "Danger Zone"
+4. Click "Delete this repository"
+5. Type "PMO" to confirm
+6. Create a new empty repository with the same name
+7. Then use the commit script to push your content
+
+## Recommended Approach:
+
+Use Option 1 if you want to keep the repository history clean, or Option 3 if you want a completely fresh start.
+
+After cleanup, run the commit_pmo_to_git.bat script to upload your PMO project.

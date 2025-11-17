@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects API - PMO API Documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-project-diagram"></i>
+                <span>Projects API</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="modules.html" class="nav-link">Modules</a></li>
+                <li><a href="#crud-operations" class="nav-link active">CRUD Operations</a></li>
+                <li><a href="#timeline-management" class="nav-link">Timelines</a></li>
+                <li><a href="#filtering" class="nav-link">Filtering</a></li>
+            </ul>
+            <button class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <h4>CRUD Operations</h4>
+                <ul>
+                    <li><a href="#get-projects">Get All Projects</a></li>
+                    <li><a href="#get-project-by-id">Get Project by ID</a></li>
+                    <li><a href="#add-project">Add/Update Project</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h4>Timeline Management</h4>
+                <ul>
+                    <li><a href="#get-timelines">Get Timelines</a></li>
+                    <li><a href="#add-timeline">Add Timeline</a></li>
+                    <li><a href="#reorder-timelines">Reorder Timelines</a></li>
+                    <li><a href="#delete-timeline">Delete Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h4>Filtering & Search</h4>
+                <ul>
+                    <li><a href="#filter-projects">Filter Projects</a></li>
+                    <li><a href="#dynamic-filter">Dynamic Filter</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="resources-api.html">Resources API</a></li>
+                    <li><a href="screener-api.html">Screener API</a></li>
+                    <li><a href="modules.html">All Modules</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1><i class="fas fa-project-diagram"></i> Projects API Documentation</h1>
+                    <p>Complete project management endpoints including CRUD operations, timeline management, and advanced filtering capabilities</p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <strong>9</strong>
+                            <span>Main Endpoints</span>
+                        </div>
+                        <div class="stat">
+                            <strong>3</strong>
+                            <span>Categories</span>
+                        </div>
+                        <div class="stat">
+                            <strong>✓</strong>
+                            <span>Timeline Support</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CRUD Operations Section -->
+            <section id="crud-operations" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-edit"></i> CRUD Operations</h2>
+                    <p>Core project management operations for creating, reading, updating project data</p>
+                </div>
+
+                <div class="api-group">
+                    <div class="endpoint" id="get-projects">
+                        <div class="endpoint-header">
+                            <div class="method-path">
+                                <span class="method get">GET</span>
+                                <span class="path">/projects</span>
+                            </div>
+                            <div class="endpoint-summary">Retrieve all projects with resource allocation summaries</div>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="description">
+                                <p>Fetches all projects from the PMO system with comprehensive details including resource allocation summaries, costs, and role breakdowns. This endpoint automatically enriches project data with calculated fields.</p>
+                            </div>
+                            
+                            <div class="response-schema">
+                                <h4>Key Response Fields</h4>
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>project_id</code></td>
+                                            <td>integer</td>
+                                            <td>Unique project identifier</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>project_name</code></td>
+                                            <td>string</td>
+                                            <td>Project name/title</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>strategic_portfolio</code></td>
+                                            <td>string</td>
+                                            <td>Strategic business portfolio</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>current_status</code></td>
+                                            <td>string</td>
+                                            <td>Current project status</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>start_date_est</code></td>
+                                            <td>date</td>
+                                            <td>Estimated start date (YYYY-MM-DD)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>end_date_est</code></td>
+                                            <td>date</td>
+                                            <td>Estimated end date (YYYY-MM-DD)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>project_resource_hours_planned</code></td>
+                                            <td>number</td>
+                                            <td>Total planned resource hours</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>project_resource_cost_planned</code></td>
+                                            <td>number</td>
+                                            <td>Total planned resource cost</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>project_resource_hours_actual</code></td>
+                                            <td>number</td>
+                                            <td>Total actual resource hours</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>resource_role_summary</code></td>
+                                            <td>object</td>
+                                            <td>Breakdown by resource roles</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>PowerShell Example</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Get all projects with resource summaries
+$response = Invoke-WebRequest -Uri "http://localhost:5000/projects" -Method GET
+$projects = $response.Content | ConvertFrom-Json
+
+# Display projects summary
+Write-Host "Total Projects: $($projects.Count)"
+Write-Host ""
+
+# Show project overview
+$projects | Select-Object project_name, strategic_portfolio, current_status, project_resource_hours_planned, project_resource_cost_planned | Format-Table
+
+# Show detailed project information
+foreach ($project in $projects) {
+    Write-Host "Project: $($project.project_name)"
+    Write-Host "  Portfolio: $($project.strategic_portfolio)"
+    Write-Host "  Status: $($project.current_status)"
+    Write-Host "  Planned Hours: $($project.project_resource_hours_planned)"
+    Write-Host "  Planned Cost: `$$($project.project_resource_cost_planned)"
+    
+    if ($project.resource_role_summary -and $project.resource_role_summary.PSObject.Properties.Count -gt 0) {
+        Write-Host "  Role Summary:"
+        $project.resource_role_summary.PSObject.Properties | ForEach-Object {
+            Write-Host "    $($_.Name): $($_.Value.total_resource_hours_planned) hours"
+        }
+    }
+    Write-Host ""
+}</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="response-example">
+                                <h4>Response Example</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-json">[
+  {
+    "project_id": 202,
+    "project_name": "Customer Portal Redesign",
+    "strategic_portfolio": "Technology",
+    "product_line": "Software Development",
+    "project_type": "Enhancement",
+    "project_description": "Redesign customer portal for better UX",
+    "current_status": "In Progress",
+    "rag_status": "Green",
+    "start_date_est": "2024-01-15",
+    "end_date_est": "2024-06-30",
+    "start_date_actual": "2024-01-18",
+    "revenue_est_current_year": 50000,
+    "project_resource_hours_planned": 1200.5,
+    "project_resource_cost_planned": 96040.00,
+    "project_resource_hours_actual": 890.2,
+    "project_resource_cost_actual": 71216.00,
+    "resource_role_summary": {
+      "Senior Developer": {
+        "total_resource_hours_planned": 800.0,
+        "total_resource_cost_planned": 64000.00
+      },
+      "UI Designer": {
+        "total_resource_hours_planned": 400.5,
+        "total_resource_cost_planned": 32040.00
+      }
+    },
+    "technology_project": true,
+    "vitality": "High",
+    "strategic": "Core"
+  }
+]</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="endpoint" id="get-project-by-id">
+                        <div class="endpoint-header">
+                            <div class="method-path">
+                                <span class="method get">GET</span>
+                                <span class="path">/projects/{project_id}</span>
+                            </div>
+                            <div class="endpoint-summary">Retrieve a specific project by ID</div>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="description">
+                                <p>Fetches detailed information for a single project including all resource allocation summaries and role breakdowns.</p>
+                            </div>
+                            
+                            <div class="parameters">
+                                <h4>Path Parameters</h4>
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Parameter</th>
+                                            <th>Type</th>
+                                            <th>Required</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>project_id</code></td>
+                                            <td>integer</td>
+                                            <td>Yes</td>
+                                            <td>Unique identifier for the project</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>PowerShell Example</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Get specific project details
+$projectId = 202
+$response = Invoke-WebRequest -Uri "http://localhost:5000/projects/$projectId" -Method GET
+$project = ($response.Content | ConvertFrom-Json)[0]  # API returns array with single item
+
+# Display comprehensive project details
+Write-Host "=== PROJECT DETAILS ==="
+Write-Host "Name: $($project.project_name)"
+Write-Host "ID: $($project.project_id)"
+Write-Host "Portfolio: $($project.strategic_portfolio)"
+Write-Host "Product Line: $($project.product_line)"
+Write-Host "Status: $($project.current_status) ($($project.rag_status))"
+Write-Host "Type: $($project.project_type)"
+Write-Host ""
+Write-Host "=== TIMELINE ==="
+Write-Host "Estimated: $($project.start_date_est) to $($project.end_date_est)"
+if ($project.start_date_actual) {
+    Write-Host "Actual Start: $($project.start_date_actual)"
+}
+Write-Host ""
+Write-Host "=== RESOURCE ALLOCATION ==="
+Write-Host "Planned Hours: $($project.project_resource_hours_planned)"
+Write-Host "Planned Cost: `$$($project.project_resource_cost_planned)"
+Write-Host "Actual Hours: $($project.project_resource_hours_actual)"
+Write-Host "Actual Cost: `$$($project.project_resource_cost_actual)"
+Write-Host ""
+Write-Host "=== FINANCIALS ==="
+Write-Host "Revenue Estimate (Current Year): `$$($project.revenue_est_current_year)"
+Write-Host "Vitality: $($project.vitality)"
+Write-Host "Strategic Importance: $($project.strategic)"
+Write-Host ""
+Write-Host "Description: $($project.project_description)"</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="endpoint" id="add-project">
+                        <div class="endpoint-header">
+                            <div class="method-path">
+                                <span class="method post">POST</span>
+                                <span class="path">/projects</span>
+                            </div>
+                            <div class="endpoint-summary">Add new project or update existing (upsert)</div>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="description">
+                                <p>Creates a new project or updates an existing one based on the combination of project_name, strategic_portfolio, and product_line. This endpoint supports comprehensive project data including financial estimates and timeline information.</p>
+                            </div>
+                            
+                            <div class="request-body">
+                                <h4>Request Body Schema (Key Fields)</h4>
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Type</th>
+                                            <th>Required</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>project_name</code></td>
+                                            <td>string</td>
+                                            <td>Yes</td>
+                                            <td>Project name (part of unique key)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>strategic_portfolio</code></td>
+                                            <td>string</td>
+                                            <td>Yes</td>
+                                            <td>Strategic portfolio (part of unique key)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>product_line</code></td>
+                                            <td>string</td>
+                                            <td>Yes</td>
+                                            <td>Product line (part of unique key)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>project_type</code></td>
+                                            <td>string</td>
+                                            <td>No</td>
+                                            <td>Type of project (Enhancement, New, etc.)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>current_status</code></td>
+                                            <td>string</td>
+                                            <td>No</td>
+                                            <td>Current project status</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>start_date_est</code></td>
+                                            <td>date</td>
+                                            <td>No</td>
+                                            <td>Estimated start date (YYYY-MM-DD)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>end_date_est</code></td>
+                                            <td>date</td>
+                                            <td>No</td>
+                                            <td>Estimated end date (YYYY-MM-DD)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>revenue_est_current_year</code></td>
+                                            <td>number</td>
+                                            <td>No</td>
+                                            <td>Revenue estimate for current year</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>PowerShell Example</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Create comprehensive project
+$body = @{
+    project_name = "Mobile App Development"
+    strategic_portfolio = "Technology"
+    product_line = "Mobile Applications"
+    project_type = "New Development"
+    project_description = "Develop new mobile application for customer engagement"
+    current_status = "Planning"
+    rag_status = "Green"
+    vitality = "High"
+    strategic = "Core"
+    aim = "Increase customer engagement through mobile platform"
+    start_date_est = "2024-03-01"
+    end_date_est = "2024-12-31"
+    revenue_est_current_year = 150000
+    revenue_est_current_year_plus_1 = 300000
+    revenue_est_current_year_plus_2 = 450000
+    technology_project = $true
+    added_by = "Project Manager"
+    added_date = "2024-01-15"
+    comments = "High priority project for Q2 launch"
+} | ConvertTo-Json
+
+$response = Invoke-WebRequest -Uri "http://localhost:5000/projects" -Method POST -Body $body -ContentType "application/json"
+$result = $response.Content | ConvertFrom-Json
+
+Write-Host "Project Status: $($result.message)"
+
+# Verify project was created
+$checkResponse = Invoke-WebRequest -Uri "http://localhost:5000/projects" -Method GET
+$projects = $checkResponse.Content | ConvertFrom-Json
+$newProject = $projects | Where-Object { $_.project_name -eq "Mobile App Development" }
+
+if ($newProject) {
+    Write-Host "Project successfully created with ID: $($newProject.project_id)"
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline Management Section -->
+            <section id="timeline-management" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-calendar-alt"></i> Timeline Management</h2>
+                    <p>Endpoints for managing project milestones and timeline sequences</p>
+                </div>
+
+                <div class="api-group">
+                    <div class="endpoint" id="get-timelines">
+                        <div class="endpoint-header">
+                            <div class="method-path">
+                                <span class="method get">GET</span>
+                                <span class="path">/projects/timelines/{project_id}</span>
+                            </div>
+                            <div class="endpoint-summary">Get project timeline milestones</div>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="description">
+                                <p>Retrieves all timeline milestones for a project, ordered by sequence number.</p>
+                            </div>
+                            
+                            <div class="parameters">
+                                <h4>Path Parameters</h4>
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Parameter</th>
+                                            <th>Type</th>
+                                            <th>Required</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>project_id</code></td>
+                                            <td>integer</td>
+                                            <td>Yes</td>
+                                            <td>Project identifier</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>PowerShell Example</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Get project timeline
+$projectId = 202
+$response = Invoke-WebRequest -Uri "http://localhost:5000/projects/timelines/$projectId" -Method GET
+$timelines = $response.Content | ConvertFrom-Json
+
+Write-Host "Project Timeline Milestones:"
+Write-Host "="*50
+
+foreach ($milestone in $timelines) {
+    Write-Host "[$($milestone.sequence)] $($milestone.milestone)"
+    Write-Host "  Description: $($milestone.milestone_description)"
+    Write-Host "  Period: $($milestone.start_date) to $($milestone.end_date)"
+    Write-Host ""
+}</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="response-example">
+                                <h4>Response Example</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-json">[
+  {
+    "milestone": "Project Kickoff",
+    "milestone_description": "Initial project setup and team alignment",
+    "start_date": "2024-01-15",
+    "end_date": "2024-01-19",
+    "sequence": 1
+  },
+  {
+    "milestone": "Requirements Gathering",
+    "milestone_description": "Collect and document detailed requirements",
+    "start_date": "2024-01-22",
+    "end_date": "2024-02-09",
+    "sequence": 2
+  },
+  {
+    "milestone": "Design Phase",
+    "milestone_description": "UI/UX design and technical architecture",
+    "start_date": "2024-02-12",
+    "end_date": "2024-03-08",
+    "sequence": 3
+  }
+]</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="endpoint" id="add-timeline">
+                        <div class="endpoint-header">
+                            <div class="method-path">
+                                <span class="method post">POST</span>
+                                <span class="path">/projects/timelines/{project_id}</span>
+                            </div>
+                            <div class="endpoint-summary">Add or update project timeline milestone</div>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="description">
+                                <p>Creates a new milestone or updates an existing one. If sequence is not provided, it will be auto-assigned as the next available number.</p>
+                            </div>
+                            
+                            <div class="request-body">
+                                <h4>Request Body Schema</h4>
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Type</th>
+                                            <th>Required</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>milestone</code></td>
+                                            <td>string</td>
+                                            <td>Yes</td>
+                                            <td>Milestone name (unique per project)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>milestone_description</code></td>
+                                            <td>string</td>
+                                            <td>No</td>
+                                            <td>Detailed milestone description</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>start_date</code></td>
+                                            <td>date</td>
+                                            <td>No</td>
+                                            <td>Milestone start date (YYYY-MM-DD)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>end_date</code></td>
+                                            <td>date</td>
+                                            <td>No</td>
+                                            <td>Milestone end date (YYYY-MM-DD)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>sequence</code></td>
+                                            <td>integer</td>
+                                            <td>No</td>
+                                            <td>Order sequence (auto-assigned if omitted)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>PowerShell Example</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Add new milestone
+$projectId = 202
+$body = @{
+    milestone = "Development Phase"
+    milestone_description = "Core application development and feature implementation"
+    start_date = "2024-03-11"
+    end_date = "2024-05-31"
+    sequence = 4
+} | ConvertTo-Json
+
+$response = Invoke-WebRequest -Uri "http://localhost:5000/projects/timelines/$projectId" -Method POST -Body $body -ContentType "application/json"
+$result = $response.Content | ConvertFrom-Json
+
+Write-Host "Timeline Status: $($result.message)"</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="endpoint" id="reorder-timelines">
+                        <div class="endpoint-header">
+                            <div class="method-path">
+                                <span class="method post">POST</span>
+                                <span class="path">/projects/timelines/reorder/{project_id}</span>
+                            </div>
+                            <div class="endpoint-summary">Reorder timeline milestones</div>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="description">
+                                <p>Updates the sequence order of multiple milestones in a single operation.</p>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>PowerShell Example</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Reorder timeline milestones
+$projectId = 202
+$body = @(
+    @{ milestone = "Project Kickoff"; sequence = 1 },
+    @{ milestone = "Design Phase"; sequence = 2 },
+    @{ milestone = "Requirements Gathering"; sequence = 3 },
+    @{ milestone = "Development Phase"; sequence = 4 }
+) | ConvertTo-Json
+
+$response = Invoke-WebRequest -Uri "http://localhost:5000/projects/timelines/reorder/$projectId" -Method POST -Body $body -ContentType "application/json"
+$result = $response.Content | ConvertFrom-Json
+
+Write-Host "Reorder Status: $($result.message)"</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="endpoint" id="delete-timeline">
+                        <div class="endpoint-header">
+                            <div class="method-path">
+                                <span class="method delete">DELETE</span>
+                                <span class="path">/projects/timelines/{project_id}</span>
+                            </div>
+                            <div class="endpoint-summary">Delete a timeline milestone</div>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="description">
+                                <p>Removes a specific milestone from the project timeline.</p>
+                            </div>
+                            
+                            <div class="request-body">
+                                <h4>Request Body Schema</h4>
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Type</th>
+                                            <th>Required</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>milestone</code></td>
+                                            <td>string</td>
+                                            <td>Yes</td>
+                                            <td>Name of milestone to delete</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>PowerShell Example</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Delete milestone
+$projectId = 202
+$body = @{
+    milestone = "Old Milestone"
+} | ConvertTo-Json
+
+$response = Invoke-WebRequest -Uri "http://localhost:5000/projects/timelines/$projectId" -Method DELETE -Body $body -ContentType "application/json"
+$result = $response.Content | ConvertFrom-Json
+
+Write-Host "Deletion Status: $($result.message)"</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filtering Section -->
+            <section id="filtering" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-filter"></i> Filtering & Search</h2>
+                    <p>Advanced filtering and search capabilities for project data</p>
+                </div>
+
+                <div class="api-group">
+                    <div class="endpoint" id="filter-projects">
+                        <div class="endpoint-header">
+                            <div class="method-path">
+                                <span class="method get">GET</span>
+                                <span class="path">/projects_filter</span>
+                            </div>
+                            <div class="endpoint-summary">Filter projects by portfolio, product line, or technology flag</div>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="description">
+                                <p>Simple filtering endpoint for common project categorization fields.</p>
+                            </div>
+                            
+                            <div class="parameters">
+                                <h4>Query Parameters</h4>
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Parameter</th>
+                                            <th>Type</th>
+                                            <th>Required</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>strategic_portfolio</code></td>
+                                            <td>string</td>
+                                            <td>No</td>
+                                            <td>Filter by strategic portfolio</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>product_line</code></td>
+                                            <td>string</td>
+                                            <td>No</td>
+                                            <td>Filter by product line</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>technology_project</code></td>
+                                            <td>string</td>
+                                            <td>No</td>
+                                            <td>Filter by technology flag (true/false)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>PowerShell Example</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Filter technology projects
+$params = @{
+    strategic_portfolio = "Technology"
+    technology_project = "true"
+}
+
+$queryString = ($params.GetEnumerator() | ForEach-Object { "$($_.Key)=$($_.Value)" }) -join "&"
+$uri = "http://localhost:5000/projects_filter?$queryString"
+
+$response = Invoke-WebRequest -Uri $uri -Method GET
+$projects = $response.Content | ConvertFrom-Json
+
+Write-Host "Technology Projects in Technology Portfolio:"
+$projects | Select-Object project_name, current_status, project_resource_hours_planned | Format-Table</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="endpoint" id="dynamic-filter">
+                        <div class="endpoint-header">
+                            <div class="method-path">
+                                <span class="method post">POST</span>
+                                <span class="path">/projects/dynamic_filter</span>
+                            </div>
+                            <div class="endpoint-summary">Advanced dynamic filtering with custom fields</div>
+                        </div>
+                        <div class="endpoint-content">
+                            <div class="description">
+                                <p>Powerful filtering endpoint that allows complex queries with multiple conditions, logical operators, and field selection. Perfect for custom dashboards and reports.</p>
+                            </div>
+                            
+                            <div class="request-body">
+                                <h4>Request Body Schema</h4>
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Type</th>
+                                            <th>Required</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>filters</code></td>
+                                            <td>array</td>
+                                            <td>No</td>
+                                            <td>Array of filter objects</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>logical_operator</code></td>
+                                            <td>string</td>
+                                            <td>No</td>
+                                            <td>"AND" or "OR" (default: "AND")</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>fields</code></td>
+                                            <td>array</td>
+                                            <td>No</td>
+                                            <td>Fields to include in response</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="response-schema">
+                                <h4>Filter Object Schema</h4>
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>column</code></td>
+                                            <td>string</td>
+                                            <td>Database column name to filter on</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>operator</code></td>
+                                            <td>string</td>
+                                            <td>Operator: =, !=, >, <, >=, <=, LIKE, IN</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>value</code></td>
+                                            <td>any</td>
+                                            <td>Value to compare against</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="example">
+                                <h4>PowerShell Example - Complex Filtering</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Advanced project filtering
+$body = @{
+    filters = @(
+        @{
+            column = "current_status"
+            operator = "="
+            value = "In Progress"
+        },
+        @{
+            column = "strategic_portfolio"
+            operator = "="
+            value = "Technology"
+        },
+        @{
+            column = "revenue_est_current_year"
+            operator = ">"
+            value = 50000
+        }
+    )
+    logical_operator = "AND"
+    fields = @(
+        "project_name",
+        "current_status", 
+        "strategic_portfolio",
+        "revenue_est_current_year",
+        "start_date_est",
+        "end_date_est",
+        "resource_hours_planned",
+        "resource_cost_planned"
+    )
+} | ConvertTo-Json -Depth 3
+
+$response = Invoke-WebRequest -Uri "http://localhost:5000/projects/dynamic_filter" -Method POST -Body $body -ContentType "application/json"
+$projects = $response.Content | ConvertFrom-Json
+
+Write-Host "High-Value In-Progress Technology Projects:"
+Write-Host "="*60
+
+foreach ($project in $projects) {
+    Write-Host "Project: $($project.project_name)"
+    Write-Host "  Status: $($project.current_status)"
+    Write-Host "  Revenue: `$$($project.revenue_est_current_year)"
+    Write-Host "  Timeline: $($project.start_date_est) to $($project.end_date_est)"
+    Write-Host "  Resources: $($project.project_resource_hours_planned) hours, `$$($project.project_resource_cost_planned)"
+    Write-Host ""
+}</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="example">
+                                <h4>PowerShell Example - Get All Fields</h4>
+                                <div class="code-container">
+                                    <button class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <pre><code class="language-powershell"># Get all available fields for projects
+$body = @{
+    filters = @()
+    fields = @("all")  # Special keyword to get all available fields
+} | ConvertTo-Json -Depth 3
+
+$response = Invoke-WebRequest -Uri "http://localhost:5000/projects/dynamic_filter" -Method POST -Body $body -ContentType "application/json"
+$projects = $response.Content | ConvertFrom-Json
+
+# Show first project with all fields
+if ($projects.Count -gt 0) {
+    Write-Host "Available Fields in Projects API:"
+    $projects[0].PSObject.Properties | ForEach-Object {
+        Write-Host "  $($_.Name): $($_.TypeNameOfValue)"
+    }
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Projects API</h3>
+                    <p>Comprehensive project management with timeline tracking, resource allocation, and advanced filtering capabilities.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>API Categories</h4>
+                    <ul>
+                        <li><a href="#crud-operations">CRUD Operations</a></li>
+                        <li><a href="#timeline-management">Timeline Management</a></li>
+                        <li><a href="#filtering">Filtering & Search</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Related APIs</h4>
+                    <ul>
+                        <li><a href="resources-api.html">Resources API</a></li>
+                        <li><a href="screener-api.html">Screener API</a></li>
+                        <li><a href="modules.html">All Modules</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 PMO API Documentation. Advanced project management system.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

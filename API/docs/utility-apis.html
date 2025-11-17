@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utility APIs - PMO API Documentation</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-project-diagram"></i>
+                <span>PMO API</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="screener-api.html" class="nav-link">Screener API</a></li>
+                <li><a href="projects-api.html" class="nav-link">Projects API</a></li>
+                <li><a href="resources-api.html" class="nav-link">Resources API</a></li>
+                <li><a href="allocations-api.html" class="nav-link">Allocations API</a></li>
+                <li><a href="managers-api.html" class="nav-link">Managers API</a></li>
+                <li><a href="business-lines-api.html" class="nav-link">Business Lines API</a></li>
+                <li><a href="utility-apis.html" class="nav-link active">Utility APIs</a></li>
+                <li><a href="modules.html" class="nav-link">All Modules</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <i class="fas fa-tools"></i>
+                        Utility APIs
+                    </h1>
+                    <p class="hero-subtitle">
+                        Supporting APIs for time-off management, resource roles, Excel imports, and actual allocation tracking.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">4</span>
+                            <span class="stat-label">Utility Modules</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">Endpoints</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">Multi-format</span>
+                            <span class="stat-label">Support</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Time Off API -->
+            <section id="timeoff-api" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-calendar-times"></i> Time Off API</h2>
+                    <p>Manage resource time-off schedules and availability tracking</p>
+                </div>
+
+                <!-- Get All Time Off -->
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/timeoff</span>
+                        <span class="description">Get all time-off records with resource details</span>
+                    </div>
+                    <div class="endpoint-content">
+                        <div class="endpoint-details">
+                            <h4>Description</h4>
+                            <p>Retrieves all time-off records across all resources with associated resource names and formatted dates.</p>
+                            
+                            <h4>Response Fields</h4>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>resource_id</td>
+                                        <td>integer</td>
+                                        <td>Unique resource identifier</td>
+                                    </tr>
+                                    <tr>
+                                        <td>resource_name</td>
+                                        <td>string</td>
+                                        <td>Full name of the resource</td>
+                                    </tr>
+                                    <tr>
+                                        <td>timeoff_start_date</td>
+                                        <td>string</td>
+                                        <td>Start date of time off (YYYY-MM-DD)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>timeoff_end_date</td>
+                                        <td>string</td>
+                                        <td>End date of time off (YYYY-MM-DD)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>reason</td>
+                                        <td>string</td>
+                                        <td>Reason for time off (vacation, sick, etc.)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Response Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-json">[
+  {
+    "resource_id": 25,
+    "resource_name": "John Doe",
+    "timeoff_start_date": "2025-12-23",
+    "timeoff_end_date": "2025-12-31",
+    "reason": "Holiday Vacation"
+  },
+  {
+    "resource_id": 30,
+    "resource_name": "Jane Smith",
+    "timeoff_start_date": "2025-11-28",
+    "timeoff_end_date": "2025-11-29",
+    "reason": "Thanksgiving"
+  }
+]</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>PowerShell Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-powershell">Invoke-WebRequest -Uri "http://localhost:5000/timeoff" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Get Time Off by Resource -->
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/timeoff/{resource_id}</span>
+                        <span class="description">Get time-off records for a specific resource</span>
+                    </div>
+                    <div class="endpoint-content">
+                        <div class="endpoint-details">
+                            <h4>Path Parameters</h4>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Required</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>resource_id</td>
+                                        <td>integer</td>
+                                        <td>Unique resource identifier</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>PowerShell Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-powershell">Invoke-WebRequest -Uri "http://localhost:5000/timeoff/25" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Time Off -->
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/timeoff</span>
+                        <span class="description">Add new time-off record for a resource</span>
+                    </div>
+                    <div class="endpoint-content">
+                        <div class="endpoint-details">
+                            <h4>Request Body</h4>
+                            <div class="code-container">
+                                <pre><code class="language-json">{
+  "resource_id": 25,
+  "timeoff_start_date": "2025-12-23",
+  "timeoff_end_date": "2025-12-31",
+  "reason": "Holiday Vacation"
+}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>PowerShell Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-powershell">$body = @{
+    resource_id = 25
+    timeoff_start_date = "2025-12-23"
+    timeoff_end_date = "2025-12-31"
+    reason = "Holiday Vacation"
+} | ConvertTo-Json
+
+Invoke-WebRequest -Uri "http://localhost:5000/timeoff" `
+  -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body $body</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resource Roles API -->
+            <section id="roles-api" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-user-cog"></i> Resource Roles API</h2>
+                    <p>Manage resource role definitions and classifications</p>
+                </div>
+
+                <!-- Get All Resource Roles -->
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/resource_roles</span>
+                        <span class="description">Get all available resource roles</span>
+                    </div>
+                    <div class="endpoint-content">
+                        <div class="endpoint-details">
+                            <h4>Description</h4>
+                            <p>Retrieves the complete list of resource roles available in the system for role assignment and classification.</p>
+                            
+                            <h4>Response Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-json">[
+  {
+    "role_id": 1,
+    "role_name": "Full Stack Developer",
+    "role_category": "Engineering",
+    "hourly_rate": 125.00,
+    "description": "Develops both front-end and back-end applications"
+  },
+  {
+    "role_id": 2,
+    "role_name": "Product Manager",
+    "role_category": "Product",
+    "hourly_rate": 150.00,
+    "description": "Manages product strategy and roadmap"
+  },
+  {
+    "role_id": 3,
+    "role_name": "UX Designer",
+    "role_category": "Design",
+    "hourly_rate": 100.00,
+    "description": "Designs user experience and interfaces"
+  }
+]</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>PowerShell Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-powershell">Invoke-WebRequest -Uri "http://localhost:5000/resource_roles" `
+  -Method GET `
+  -Headers @{"Content-Type"="application/json"}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Excel Import API -->
+            <section id="excel-import-api" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-file-excel"></i> Excel Import API</h2>
+                    <p>Bulk data import from Excel files to database tables</p>
+                </div>
+
+                <!-- Upload Excel and Upsert -->
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/excel_to_db</span>
+                        <span class="description">Upload Excel file and import data to specified table</span>
+                    </div>
+                    <div class="endpoint-content">
+                        <div class="endpoint-details">
+                            <h4>Description</h4>
+                            <p>Accepts Excel file uploads and automatically imports the data into the specified database table with upsert operations.</p>
+                            
+                            <h4>Form Parameters</h4>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Required</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>table_name</td>
+                                        <td>string</td>
+                                        <td>Target database table name</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>file</td>
+                                        <td>file</td>
+                                        <td>Excel file (.xlsx, .xls)</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Supported Tables</h4>
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Check excel_to_db.conf for complete list of supported table configurations</span>
+                            </div>
+                            
+                            <h4>Response Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-json">{
+  "message": "Data imported successfully",
+  "rows_processed": 150,
+  "rows_inserted": 25,
+  "rows_updated": 125,
+  "table_name": "projects"
+}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>PowerShell Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Create form data for file upload
+$form = @{
+    table_name = "projects"
+    file = Get-Item "C:\path\to\projects.xlsx"
+}
+
+Invoke-WebRequest -Uri "http://localhost:5000/excel_to_db" `
+  -Method POST `
+  -Form $form</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="example-request">
+                            <h4>cURL Example</h4>
+                            <div class="code-container">
+                                <pre><code class="language-bash">curl -X POST "http://localhost:5000/excel_to_db" \
+  -F "table_name=projects" \
+  -F "file=@projects.xlsx"</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Use Cases Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Common Use Cases</h2>
+                    <p>Practical applications for utility APIs</p>
+                </div>
+
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <div class="example-header">
+                            <i class="fas fa-calendar-check"></i>
+                            <h3>Capacity Planning</h3>
+                        </div>
+                        <div class="example-content">
+                            <p>Account for time-off when calculating resource availability</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Get resource capacity accounting for time-off
+$timeOff = (Invoke-WebRequest -Uri "http://localhost:5000/timeoff/25").Content | ConvertFrom-Json
+$capacity = (Invoke-WebRequest -Uri "http://localhost:5000/resource_capacity?resource_id=25&start_date=2025-01-01&end_date=2025-12-31").Content | ConvertFrom-Json
+
+# Calculate adjusted capacity
+foreach ($month in $capacity) {
+    $timeOffDays = ($timeOff | Where-Object { 
+        $_.timeoff_start_date -le $month.end_date -and 
+        $_.timeoff_end_date -ge $month.start_date 
+    }).Count * 8  # 8 hours per day
+    
+    $month.adjusted_capacity = $month.total_capacity - $timeOffDays
+}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-header">
+                            <i class="fas fa-upload"></i>
+                            <h3>Bulk Data Import</h3>
+                        </div>
+                        <div class="example-content">
+                            <p>Import large datasets from Excel files</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Import project data from Excel
+$projectFile = "C:\data\Q1_Projects.xlsx"
+$form = @{
+    table_name = "projects"
+    file = Get-Item $projectFile
+}
+
+$result = Invoke-WebRequest -Uri "http://localhost:5000/excel_to_db" -Method POST -Form $form
+Write-Host "Import completed: $($result.Content)" -ForegroundColor Green</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-header">
+                            <i class="fas fa-users-cog"></i>
+                            <h3>Role-Based Analysis</h3>
+                        </div>
+                        <div class="example-content">
+                            <p>Analyze cost and allocation by role categories</p>
+                            <div class="code-container">
+                                <pre><code class="language-powershell"># Get role information for cost analysis
+$roles = (Invoke-WebRequest -Uri "http://localhost:5000/resource_roles").Content | ConvertFrom-Json
+$resources = (Invoke-WebRequest -Uri "http://localhost:5000/resources").Content | ConvertFrom-Json
+
+# Calculate average rate by role category
+$roleStats = $roles | Group-Object role_category | ForEach-Object {
+    @{
+        Category = $_.Name
+        AverageRate = ($_.Group | Measure-Object hourly_rate -Average).Average
+        RoleCount = $_.Count
+    }
+}
+
+$roleStats | Format-Table -AutoSize</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h4>Utility APIs</h4>
+                        <p>Supporting APIs for time-off management, resource roles, Excel imports, and operational efficiency.</p>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="resources-api.html">Resources API</a></li>
+                            <li><a href="allocations-api.html">Allocations API</a></li>
+                            <li><a href="projects-api.html">Projects API</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Features</h4>
+                        <ul>
+                            <li>Time-off Tracking</li>
+                            <li>Role Management</li>
+                            <li>Excel Import</li>
+                            <li>Bulk Operations</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 PMO API Documentation. Built with ❤️ for developers.</p>
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

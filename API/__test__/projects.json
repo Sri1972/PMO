@@ -1,0 +1,7 @@
+{
+  "fields": ["project_type", "start_date_est", "end_date_est", "project_resource_hours_planned"],
+  "filters": [
+    {"column": "strategic_portfolio", "operator": "=", "value": "Market & Sell"},
+    {"column": "product_line", "operator": "=", "value": "NA Industry Performance"}
+  ]
+}

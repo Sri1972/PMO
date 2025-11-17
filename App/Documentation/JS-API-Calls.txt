@@ -1,0 +1,52 @@
+# Dashboard.js
+${API_BASE_URL}/projects
+${API_BASE_URL}/business_lines
+${API_BASE_URL}/project_capacity_allocation/${project.project_id}?interval=Weekly
+${API_BASE_URL}/resource_capacity_allocation_per_portfolio?${paramsWeekly.toString()}
+
+# Projects.js
+${API_BASE_URL}/projects
+${API_BASE_URL}/strategic_portfolios
+${API_BASE_URL}/product_lines/${strategicPortfolio}
+${API_BASE_URL}/resource_capacity_allocation?resource_id=${resource_id}&start_date=${startDate}&end_date=${endDate}&interval=${interval}
+${API_BASE_URL}/project_capacity_allocation/${projectId}?interval=${interval}
+
+# ResourceAllocationPlanned.js
+${API_BASE_URL}/allocations
+${API_BASE_URL}/projects
+${API_BASE_URL}/resources
+
+# Resources.js
+${API_BASE_URL}/resources
+${API_BASE_URL}/resource_capacity_allocation?resource_id=${resource.resource_id}&start_date=${startDate}&end_date=${endDate}&interval=${interval}
+${API_BASE_URL}/allocations/resource/${resourceId}
+${API_BASE_URL}/projects
+${API_BASE_URL}/strategic_portfolios
+${API_BASE_URL}/managers
+${API_BASE_URL}/resource_roles
+${API_BASE_URL}/resource_capacity_allocation_per_portfolio?${params.toString()}
+
+
+
+
+#############################
+http://localhost:5000/strategic_portfolios
+http://localhost:5000/business_lines
+http://localhost:5000/product_lines/${strategicPortfolio}
+http://localhost:5000/resource_roles
+http://localhost:5000/managers
+http://localhost:5000/resources
+
+http://localhost:5000/projects
+http://localhost:5000/project_capacity_allocation/${project.project_id}?interval=Weekly
+http://localhost:5000/project_capacity_allocation/${projectId}?interval=${interval}
+
+http://localhost:5000/allocations
+http://localhost:5000/allocations/resource/${resourceId}
+
+http://localhost:5000/resource_capacity_allocation?resource_id=${resource.resource_id}&start_date=${startDate}&end_date=${endDate}&interval=${interval}
+http://localhost:5000/resource_capacity_allocation?resource_id=${resource_id}&start_date=${startDate}&end_date=${endDate}&interval=${interval}
+http://localhost:5000/resource_capacity_allocation_per_portfolio?${params.toString()}
+http://localhost:5000/resource_capacity_allocation_per_portfolio?${paramsWeekly.toString()}
+
+

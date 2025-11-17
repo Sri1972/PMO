@@ -1,0 +1,155 @@
+body {
+    margin: 0;
+    padding: 0;
+    padding-left: 5px !important;
+    padding-right: 0 !important; /* Remove right padding to extend to edge */
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    font-family: Arial, sans-serif; /* Update the font family to match S&P Global */
+}
+
+.black-strip {
+    width: 100%;
+    height: 30px; /* Adjust the height as needed */
+    background-color: black;
+}
+
+.container {
+    width: 100vw; /* Use the full viewport width */
+    padding-left: 0; /* Remove padding */
+    padding-right: 0; /* Remove right padding to extend to edge */
+    padding-top: 100px !important; /* Add padding to move content below the fixed header */
+    margin: 0; /* Remove margin */
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+    background-color: white; /* Ensure the background color is consistent */
+}
+
+header {
+    display: flex;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    padding-left: 5px;
+    padding-right: 5px; /* Adjust padding to match left padding */
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    width: calc(100% - 10px); /* Adjust width to account for padding */
+    box-sizing: border-box;
+    border: 0.5px solid black; /* Add a thin black border */
+    position: fixed; /* Make the header fixed */
+    top: 0; /* Position it at the top */
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 45px;
+    margin-right: 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-family: 'Arial Black', sans-serif; /* Update the font family to match S&P Global */
+    color: black;
+}
+
+.nav-tabs {
+    flex-grow: 1;
+    font-weight: bold;
+    display: flex;
+    justify-content: center; /* Center the tabs */
+    border: none;
+}
+
+.nav-tabs ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center; /* Align tabs with the logo */
+    background-color: white;
+}
+
+.nav-tabs li {
+    margin: 0 10px;
+}
+
+.nav-tabs a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: black;
+    border: none; /* Remove border */
+    background-color: white;
+}
+
+.nav-tabs a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.nav-tabs a.active {
+    background-color: #ccc;
+    color: black;
+}
+
+/* Dropdown styles */
+.nav-tabs .dropdown {
+    position: relative;
+}
+
+.nav-tabs .dropdown-toggle {
+    display: block;
+    padding: 10px 15px;
+    cursor: pointer;
+    color: black;
+    background-color: white;
+}
+
+.nav-tabs .dropdown-toggle:hover {
+    background-color: #ddd;
+}
+
+.nav-tabs .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-width: 180px;
+    z-index: 1000;
+}
+
+.nav-tabs .dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.nav-tabs .dropdown-menu li {
+    margin: 0;
+}
+
+.nav-tabs .dropdown-menu a {
+    padding: 10px 15px;
+    display: block;
+    color: black;
+    text-decoration: none;
+    background-color: white;
+}
+
+.nav-tabs .dropdown-menu a:hover {
+    background-color: #ddd;
+}
+
+.center-header {
+  text-align: center;
+}
